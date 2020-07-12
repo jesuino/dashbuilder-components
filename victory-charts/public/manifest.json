@@ -1,0 +1,45 @@
+{
+  "name": "Victory Charts",
+  "icon": "fa fa-bell-o",
+  "parameters": [
+    {
+      "name": "chartType",
+      "type": "combo",
+      "defaultValue": "bar",
+      "label": "Chart Type",
+      "comboValues": [
+        "bar",
+        "line",
+        "area",
+        "stack",
+        "pie",
+        "donut"
+      ]
+    },
+    {
+      "name": "theme",
+      "type": "combo",
+      "defaultValue": "multi-ordered",
+      "label": "Color Theme",
+      "comboValues": [
+        "blue",
+        "cyan",
+        "blue",
+        "gold",
+        "gray",
+        "green",
+        "multi",
+        "multi-ordered",
+        "multi-unordered",
+        "orange",
+        "purple"
+      ]
+    },
+    {
+      "name": "chartHeight",
+      "type": "natural_number",
+      "defaultValue": "300",
+      "label": "Chart Height"
+    }
+  ]
+}
