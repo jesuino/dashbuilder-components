@@ -17,6 +17,7 @@ interface Params {
   chartType: ChartType;
   theme: ThemeType,
   chartHeight: string;
+  chartTitle: string;
 }
 
 interface State {
@@ -24,6 +25,7 @@ interface State {
   height: number;
   type: ChartType;
   theme: ThemeType;
+  chartTitle: string;
 }
 
 export class ChartDemo extends React.Component<Props, State>  {
@@ -40,7 +42,8 @@ export class ChartDemo extends React.Component<Props, State>  {
       width: 600,
       height: 300,
       type: "stack",
-      theme: 'multi-ordered'
+      theme: 'multi-ordered',
+      chartTitle: "string"
     };
     this.handleResize = () => {
       if (this.containerRef.current && this.containerRef.current.clientWidth) {
@@ -53,7 +56,8 @@ export class ChartDemo extends React.Component<Props, State>  {
       this.setState({
         type: params.chartType,
         height: +params.chartHeight,
-        theme: params.theme
+        theme: params.theme,
+        chartTitle: params.chartTitle
       });
     }
     this.selectChart = (type: ChartType,) => {
@@ -89,9 +93,10 @@ export class ChartDemo extends React.Component<Props, State>  {
 
 
   render() {
-    const { type } = this.state;
+    const { type, chartTitle } = this.state;
     return (
-      <div ref={this.containerRef} style={{ height: '225px' }}>
+      <div ref={this.containerRef} style={{ width: 'auto', height: 'auto' }}>
+        <p>{chartTitle}</p>
         {this.selectChart(type)}
       </div>
     );

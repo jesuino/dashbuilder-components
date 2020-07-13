@@ -1,7 +1,13 @@
 {
   "name": "Victory Charts",
-  "icon": "fa fa-bell-o",
-  "parameters": [
+  "icon": "fa fa-tachometer",
+  "parameters": [    
+    {
+      "name": "chartTitle",
+      "type": "text",
+      "defaultValue": "title",
+      "label": "Chart Title"
+    },
     {
       "name": "chartType",
       "type": "combo",
