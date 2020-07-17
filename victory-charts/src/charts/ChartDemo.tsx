@@ -5,19 +5,33 @@ import { LineChart } from './LineChart';
 import { DonutChart } from './DonutChart';
 import { PieChart } from './PieChart';
 import { StackChart } from './StackChart';
-import { ThemeType } from './BaseChart';
+import { ThemeType, DataSet, ChartType, validateDataSetForChart, ValidationResult, LegendPosition } from './BaseChart';
 
 interface Props {
 }
 
-// TODO: Support chart theme
-type ChartType = "bar" | "area" | "line" | "donut" | "pie" | "stack";
-
 interface Params {
   chartType: ChartType;
-  theme: ThemeType,
-  chartHeight: string;
-  chartTitle: string;
+  theme: ThemeType;
+}
+
+const DEFAULT_DATASET: DataSet = {
+  columns: [
+    { name: "Animal", type: "TEXT" },
+    { name: "2017", type: "NUMBER" },
+    { name: "2018", type: "NUMBER" },
+    { name: "2019", type: "NUMBER" },
+    { name: "2020", type: "NUMBER" }
+
+  ],
+  data: [
+    ["Pigs", "3", "7", "2", "9"],
+    ["Dogs", "6", "3", "2", "7"],
+    ["Sheeps", "5", "1", "2", "1"],
+    ["Horses", "6", "2", "2", "3"],
+    ["Cows", "1", "2", "4", "8"],
+    ["Cats", "1", "2", "2", "4"],
+  ]
 }
 
 interface State {
@@ -25,7 +39,10 @@ interface State {
   height: number;
   type: ChartType;
   theme: ThemeType;
-  chartTitle: string;
+  validation: ValidationResult;
+  dataSet: DataSet;
+  legendPosition: LegendPosition;
+  animate: boolean;
 }
 
 export class ChartDemo extends React.Component<Props, State>  {
@@ -43,7 +60,10 @@ export class ChartDemo extends React.Component<Props, State>  {
       height: 300,
       type: "stack",
       theme: 'multi-ordered',
-      chartTitle: "string"
+      validation: { isValid: true },
+      dataSet: DEFAULT_DATASET,
+      legendPosition: "bottom",
+      animate:false,
     };
     this.handleResize = () => {
       if (this.containerRef.current && this.containerRef.current.clientWidth) {
@@ -52,29 +72,34 @@ export class ChartDemo extends React.Component<Props, State>  {
     };
 
     this.receiveEvent = (event: any) => {
-      const params = event.data as Params;
+      const params = event.data.properties as Map<string, object>;
+      const dataSet = params.get("dataSet") as DataSet;
+      const chartType = params.get("chartType") as unknown as ChartType;
+      const validation = validateDataSetForChart(chartType, dataSet);
       this.setState({
-        type: params.chartType,
-        height: +params.chartHeight,
-        theme: params.theme,
-        chartTitle: params.chartTitle
+        type: params.get("chartType") as unknown as ChartType || this.state.type,
+        theme: params.get("theme") as unknown as ThemeType || this.state.theme,
+        dataSet: params.get("dataSet") as unknown as DataSet || this.state.dataSet,
+        legendPosition: params.get("legendPosition") as unknown as LegendPosition || this.state.legendPosition,
+        animate: params.get("animate") as unknown === 'true',
+        validation: validation
       });
     }
-    this.selectChart = (type: ChartType,) => {
-      const { width, height, theme } = this.state;
+
+    this.selectChart = (type: ChartType) => {
       switch (type) {
         case "area":
-          return <AreaChart width={width} height={height} theme={theme} />
+          return <AreaChart {...this.state} />
         case "bar":
-          return <BarChart width={width} height={height} theme={theme} />;
+          return <BarChart {...this.state} />;
         case "line":
-          return <LineChart width={width} height={height} theme={theme} />;
+          return <LineChart {...this.state} />;
         case "donut":
-          return <DonutChart width={width} height={height} theme={theme} />;
+          return <DonutChart {...this.state} />;
         case "pie":
-          return <PieChart width={width} height={height} theme={theme} />;
+          return <PieChart {...this.state} />;
         case "stack":
-          return <StackChart width={width} height={height} theme={theme} />;
+          return <StackChart {...this.state} />;
       }
     };
   }
@@ -90,14 +115,11 @@ export class ChartDemo extends React.Component<Props, State>  {
     window.removeEventListener('message', this.receiveEvent, false);
   }
 
-
-
   render() {
-    const { type, chartTitle } = this.state;
+    const { type, validation } = this.state;
     return (
       <div ref={this.containerRef} style={{ width: 'auto', height: 'auto' }}>
-        <p>{chartTitle}</p>
-        {this.selectChart(type)}
+        {validation.isValid ? this.selectChart(type) : <em>{validation.message}</em>}
       </div>
     );
   }

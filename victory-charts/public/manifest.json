@@ -1,13 +1,7 @@
 {
   "name": "Victory Charts",
   "icon": "fa fa-tachometer",
-  "parameters": [    
-    {
-      "name": "chartTitle",
-      "type": "text",
-      "defaultValue": "title",
-      "label": "Chart Title"
-    },
+  "parameters": [
     {
       "name": "chartType",
       "type": "combo",
@@ -42,10 +36,21 @@
       ]
     },
     {
-      "name": "chartHeight",
-      "type": "natural_number",
-      "defaultValue": "300",
-      "label": "Chart Height"
+      "name": "legendPosition",
+      "type": "combo",
+      "defaultValue": "bottom",
+      "label": "Legend Position",
+      "comboValues": [
+        "bottom",
+        "bottom-left",
+        "right"
+      ]
+    },
+    {
+      "name": "animate",
+      "type": "boolean",
+      "defaultValue": "false",
+      "label": "Animate"
     }
   ]
 }

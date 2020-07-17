@@ -13,9 +13,9 @@ export class DonutChart extends BaseChart {
         ariaDesc="Average number of pets"
         ariaTitle="Donut chart example"
         constrainToVisibleArea={true}
-        data={[{ x: 'Cats', y: 35 }, { x: 'Dogs', y: 55 }, { x: 'Birds', y: 10 }]}
+        data={this.dataSetToPieChart()}
         labels={({ datum }) => `${datum.x}: ${datum.y}%`}
-        legendData={[{ name: 'Cats: 35' }, { name: 'Dogs: 55' }, { name: 'Birds: 10' }]}
+        legendData={this.legendData}
         legendOrientation="vertical"
         legendPosition="right"
         padding={{
