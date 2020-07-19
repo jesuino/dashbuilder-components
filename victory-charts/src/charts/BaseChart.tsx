@@ -8,7 +8,7 @@ export type ThemeType = "blue" | "cyan" | "blue" | "gold" | "gray" |
 
 export type LegendPosition = "bottom-left" | "bottom" | "right";
 export type ChartType = "bar" | "area" | "line" | "donut" | "pie" | "stack";
-export type LegendOrientation  = "horizontal" | "vertical";
+export type LegendOrientation = "horizontal" | "vertical";
 export type ColumnType = "TEXT" | "LABEL" | "DATE" | "NUMBER";
 
 export interface XYChartData {
@@ -85,7 +85,7 @@ export function validateDataSetForChart(chartType: ChartType, dataSet: DataSet):
             break;
     }
 
-    if (columns.length <= 2) {
+    if (columns.length < 2) {
         return NOT_ENOUGHT_COLUMNS_VALIDATION(chartType, columns.length, 2);
     }
 
@@ -117,8 +117,8 @@ export abstract class BaseChart extends React.Component<ChartProps, any> {
     constructor(props) {
         super(props);
         this.buildLegendData();
-        this.setupPadding(); 
-        this.legendOrientation = this.props.legendPosition === 'right' ? 'vertical' : 'horizontal';       
+        this.setupPadding();
+        this.legendOrientation = this.props.legendPosition === 'right' ? 'vertical' : 'horizontal';
     }
 
     setupPadding() {
@@ -147,31 +147,32 @@ export abstract class BaseChart extends React.Component<ChartProps, any> {
     }
 
     buildLegendData() {
-        this.legendData = this.names().map(name => {
+        this.legendData = this.categories().map(name => {
             return { name: name };
         });
     }
 
 
-    names(): string[] {
-        return this.props.dataSet.data.map(l => l[0]);
+    categories(): string[] {
+        return this.props.dataSet.columns.slice(1).map(column => column.name);
     }
 
     dataSetToXYData(): XYChartSeries[] {
         const groupedLines: Map<string, XYChartData[]> = new Map();
+        const categories = this.categories();
         const ds = this.props.dataSet;
         const rows = ds.data.length;
         const cols = ds.columns.length;
         const series: XYChartSeries[] = [];
 
-
-        this.names().forEach(name => groupedLines.set(name, []));
+        categories.forEach(name => groupedLines.set(name, []))
 
         for (let i = 0; i < rows; i++) {
             const name = ds.data[i][0];
             for (let j = 1; j < cols; j++) {
-                groupedLines.get(name)?.push({
-                    x: ds.columns[j].name,
+                const cat = categories[j - 1];
+                groupedLines.get(cat)?.push({
+                    x: name,
                     y: +ds.data[i][j]
                 });
             }

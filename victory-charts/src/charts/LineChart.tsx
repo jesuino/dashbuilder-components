@@ -29,7 +29,9 @@ export class LineChart extends BaseChart {
         <ChartGroup>
           {this.dataSetToXYData()
             .map(line => this.seriesLines(line))
-            .map((lineData, i) => <ChartLine key={i} data={lineData} />)}
+            .map((lineData, i) =>
+              <ChartLine key={i} data={lineData} />
+            )}
         </ChartGroup>
       </Chart>
     );

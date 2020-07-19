@@ -25,10 +25,12 @@ export class BarChart extends BaseChart {
       >
         <ChartAxis />
         <ChartAxis dependentAxis showGrid />
-        <ChartGroup offset={10} >
+        <ChartGroup offset={10}>
           {this.dataSetToXYData()
             .map(line => this.seriesLines(line))
-            .map((lineData, i) => <ChartBar key={i} data={lineData} />)}
+            .map((lineData, i) =>
+              <ChartBar key={i} data={lineData} />
+            )}
         </ChartGroup>
       </Chart>
     );
