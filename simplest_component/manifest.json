@@ -6,19 +6,22 @@
             "name": "name",
             "type": "text",
             "defaultValue": "John",
-            "label": "Please enter your name"
+            "label": "Please enter your name",
+            "category": "Data"
         },
         {
             "name": "age",
             "type": "natural_number",
             "defaultValue": "22",
-            "label": "Age"
+            "label": "Age",
+            "category": "Data"
         },
         {
             "name": "color",
             "type": "color",
             "defaultValue": "red",
-            "label": "Text Color"
+            "label": "Text Color",
+            "category": "Style"
         },
         {
             "name": "border",
@@ -29,13 +32,15 @@
                 "solid",
                 "dashed",
                 "none"
-            ]
+            ],
+            "category": "Style"
         },
         {
             "name": "size",
             "type": "boolean",
             "defaultValue": "false",
-            "label": "Large Size"
+            "label": "Large Size",
+            "category": "Style"
         }
     ]
 }
