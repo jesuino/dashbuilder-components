@@ -1,13 +1,13 @@
 import React from 'react';
 
 import './App.css';
-import { ChartDemo } from './charts/ChartDemo';
+import { ChartContainer } from './charts/ChartContainer';
 
 function App() {
 
   return (
     <div className="App">
-      <ChartDemo />
+      <ChartContainer />
     </div>
   );
 }

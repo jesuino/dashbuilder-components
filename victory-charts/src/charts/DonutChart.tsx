@@ -18,12 +18,7 @@ export class DonutChart extends BaseChart {
         legendData={this.legendData}
         legendOrientation="vertical"
         legendPosition="right"
-        padding={{
-          bottom: 20,
-          left: 20,
-          right: 140, // Adjusted to accommodate legend
-          top: 20
-        }}
+        padding={this.props.padding}
         subTitle="Pets"
         title="100"
         themeColor={theme}

@@ -19,12 +19,7 @@ export class PieChart extends BaseChart {
         legendData={this.legendData}
         legendOrientation="vertical"
         legendPosition="right"
-        padding={{
-          bottom: 65,
-          left: 20,
-          right: 20,
-          top: 20
-        }}
+        padding={this.props.padding}
         themeColor={theme}
         width={width}
       />

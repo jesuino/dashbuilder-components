@@ -106,45 +106,22 @@ export interface ChartProps {
     dataSet: DataSet;
     legendPosition: LegendPosition;
     animate: boolean;
+    ariaTitle: string;
+    ariaDescription: string;
+    padding: PaddingProps
 }
 
 export abstract class BaseChart extends React.Component<ChartProps, any> {
 
     legendOrientation: LegendOrientation = "horizontal";
     legendData: LegendData[] = [];
-    padding: PaddingProps = { bottom: 50, left: 50, right: 50, top: 50 };
 
     constructor(props) {
         super(props);
         this.buildLegendData();
-        this.setupPadding();
         this.legendOrientation = this.props.legendPosition === 'right' ? 'vertical' : 'horizontal';
     }
 
-    setupPadding() {
-        switch (this.props.legendPosition) {
-            case "bottom":
-            case "bottom-left":
-                this.padding = {
-                    bottom: 75,
-                    left: 50,
-                    right: 50,
-                    top: 50,
-                }
-                break;
-            case "right":
-                this.padding = {
-                    bottom: 50,
-                    left: 50,
-                    right: 75,
-                    top: 50,
-                }
-                break;
-
-            default:
-                break;
-        }
-    }
 
     buildLegendData() {
         this.legendData = this.categories().map(name => {

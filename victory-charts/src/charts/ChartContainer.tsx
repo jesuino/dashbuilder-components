@@ -5,6 +5,7 @@ import { LineChart } from './LineChart';
 import { DonutChart } from './DonutChart';
 import { PieChart } from './PieChart';
 import { StackChart } from './StackChart';
+import { PaddingProps } from 'victory-core';
 import { ThemeType, DataSet, ChartType, validateDataSetForChart, ValidationResult, LegendPosition } from './BaseChart';
 
 interface Props {
@@ -43,9 +44,12 @@ interface State {
   dataSet: DataSet;
   legendPosition: LegendPosition;
   animate: boolean;
+  ariaTitle: string;
+  ariaDescription: string;
+  padding: PaddingProps
 }
 
-export class ChartDemo extends React.Component<Props, State>  {
+export class ChartContainer extends React.Component<Props, State>  {
 
   containerRef: React.RefObject<any>;
   handleResize: () => void;
@@ -63,7 +67,10 @@ export class ChartDemo extends React.Component<Props, State>  {
       validation: { isValid: true },
       dataSet: DEFAULT_DATASET,
       legendPosition: "bottom",
-      animate:false,
+      animate: false,
+      ariaTitle: "Chart Title",
+      ariaDescription: "Chart Description",
+      padding: { bottom: 20, left: 0, right: 0, top: 0 }
     };
     this.handleResize = () => {
       if (this.containerRef.current && this.containerRef.current.clientWidth) {
@@ -76,12 +83,27 @@ export class ChartDemo extends React.Component<Props, State>  {
       const dataSet = params.get("dataSet") as DataSet;
       const chartType = params.get("chartType") as unknown as ChartType;
       const validation = validateDataSetForChart(chartType, dataSet);
+
+      const paddingBottom = params.get("paddingBottom") || "0";
+      const paddingRight = params.get("paddingRight") || "0";
+      const paddingLeft = params.get("paddingLeft") || "0";
+      const paddingTop = params.get("paddingTop") || "0";
+
+      const padding: PaddingProps = {
+        bottom: +paddingBottom,
+        right: +paddingRight,
+        left: +paddingLeft,
+        top: +paddingTop
+      }
       this.setState({
         type: params.get("chartType") as unknown as ChartType || this.state.type,
         theme: params.get("theme") as unknown as ThemeType || this.state.theme,
         dataSet: params.get("dataSet") as unknown as DataSet || this.state.dataSet,
         legendPosition: params.get("legendPosition") as unknown as LegendPosition || this.state.legendPosition,
         animate: params.get("animate") as unknown === 'true',
+        ariaTitle: params.get("ariaTitle") as unknown as string,
+        ariaDescription: params.get("ariaDescription") as unknown as string,
+        padding: padding,
         validation: validation
       });
     }

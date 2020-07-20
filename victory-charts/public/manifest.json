@@ -14,7 +14,8 @@
         "stack",
         "pie",
         "donut"
-      ]
+      ],
+      "category": "Chart"
     },
     {
       "name": "theme",
@@ -33,7 +34,8 @@
         "multi-unordered",
         "orange",
         "purple"
-      ]
+      ],
+      "category": "Chart"
     },
     {
       "name": "legendPosition",
@@ -44,13 +46,57 @@
         "bottom",
         "bottom-left",
         "right"
-      ]
+      ],
+      "category": "Legend"
     },
     {
       "name": "animate",
       "type": "boolean",
       "defaultValue": "false",
-      "label": "Animate"
+      "label": "Animate",
+      "category": "Animation"
+    },
+    {
+      "name": "ariaTitle",
+      "type": "text",
+      "defaultValue": "Chart",
+      "label": "Aria Title",
+      "category": "Aria Attributes"
+    },
+    {
+      "name": "ariaDescription",
+      "type": "text",
+      "defaultValue": "Chart Description",
+      "label": "Aria Description",
+      "category": "Aria Attributes"
+    },
+    {
+      "name": "paddingBottom",
+      "type": "natural_number",
+      "defaultValue": "100",
+      "label": "Bottom",
+      "category": "Padding"
+    },
+    {
+      "name": "paddingLeft",
+      "type": "natural_number",
+      "defaultValue": "100",
+      "label": "Left",
+      "category": "Padding"
+    },
+    {
+      "name": "paddingRight",
+      "type": "natural_number",
+      "defaultValue": "10",
+      "label": "Right",
+      "category": "Padding"
+    },
+    {
+      "name": "paddingTop",
+      "type": "natural_number",
+      "defaultValue": "10",
+      "label": "Top",
+      "category": "Padding"
     }
   ]
 }
