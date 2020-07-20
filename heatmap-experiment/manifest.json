@@ -3,39 +3,10 @@
     "icon": "fa fa-bell-o",
     "parameters": [
         {
-            "name": "name",
+            "name": "svg",
             "type": "text",
-            "defaultValue": "John",
-            "label": "Please enter your name"
-        },
-        {
-            "name": "age",
-            "type": "natural_number",
-            "defaultValue": "22",
-            "label": "Age"
-        },
-        {
-            "name": "color",
-            "type": "color",
-            "defaultValue": "red",
-            "label": "Text Color"
-        },
-        {
-            "name": "border",
-            "type": "combo",
-            "defaultValue": "solid",
-            "label": "Border",
-            "comboValues": [
-                "solid",
-                "dashed",
-                "none"
-            ]
-        },
-        {
-            "name": "size",
-            "type": "boolean",
-            "defaultValue": "false",
-            "label": "Large Size"
+            "defaultValue": "",
+            "label": "Process SVG"
         }
     ]
 }
