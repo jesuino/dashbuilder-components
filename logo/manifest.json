@@ -1,0 +1,19 @@
+{
+    "name": "Logo",
+    "icon": "fa fa-bell-o",
+    "parameters": [
+        {
+            "name": "url",
+            "type": "text",
+            "defaultValue": "",
+            "label": "Image URL"
+        },
+        {
+            "name": "style",
+            "type": "text",
+            "defaultValue": "",
+            "label": "CSS"
+        }
+
+    ]
+}

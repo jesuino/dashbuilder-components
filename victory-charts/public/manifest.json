@@ -13,7 +13,8 @@
         "area",
         "stack",
         "pie",
-        "donut"
+        "donut",
+        "utilization-donut"
       ],
       "category": "Chart"
     },
@@ -38,6 +39,13 @@
       "category": "Chart"
     },
     {
+      "name": "zoom",
+      "type": "boolean",
+      "defaultValue": "false",
+      "label": "Enable Zoom",
+      "category": "Chart"
+    },
+    {
       "name": "legendPosition",
       "type": "combo",
       "defaultValue": "bottom",
@@ -48,13 +56,6 @@
         "right"
       ],
       "category": "Legend"
-    },
-    {
-      "name": "animate",
-      "type": "boolean",
-      "defaultValue": "false",
-      "label": "Animate",
-      "category": "Animation"
     },
     {
       "name": "ariaTitle",
@@ -97,6 +98,97 @@
       "defaultValue": "10",
       "label": "Top",
       "category": "Padding"
+    },
+    {
+      "name": "gridx",
+      "type": "boolean",
+      "defaultValue": "true",
+      "label": "Grid X",
+      "category": "Axis"
+    },
+    {
+      "name": "gridy",
+      "type": "boolean",
+      "defaultValue": "false",
+      "label": "Grid Y",
+      "category": "Axis"
+    },
+    {
+      "name": "animate",
+      "type": "boolean",
+      "defaultValue": "false",
+      "label": "Animate",
+      "category": "Animation"
+    },
+    {
+      "name": "animationDuration",
+      "type": "natural_number",
+      "defaultValue": "400",
+      "label": "Duration (ms)",
+      "category": "Animation"
+    },
+    {
+      "name": "animationEasing",
+      "type": "combo",
+      "defaultValue": "linear",
+      "label": "Easing",
+      "category": "Animation",
+      "comboValues": [
+        "back",
+        "backIn",
+        "backOut",
+        "backInOut",
+        "bounce",
+        "bounceIn",
+        "bounceOut",
+        "bounceInOut",
+        "circle",
+        "circleIn",
+        "circleOut",
+        "circleInOut",
+        "linear",
+        "linearIn",
+        "linearOut",
+        "linearInOut",
+        "cubic",
+        "cubicIn",
+        "cubicOut",
+        "cubicInOut",
+        "elastic",
+        "elasticIn",
+        "elasticOut",
+        "elasticInOut",
+        "exp",
+        "expIn",
+        "expOut",
+        "expInOut",
+        "poly",
+        "polyIn",
+        "polyOut",
+        "polyInOut",
+        "quad",
+        "quadIn",
+        "quadOut",
+        "quadInOut",
+        "sin",
+        "sinIn",
+        "sinOut",
+        "sinInOut"
+      ]
+    },
+    {
+      "name": "donutTitle",
+      "type": "text",
+      "defaultValue": "Data",
+      "label": "Title",
+      "category": "Donut"
+    },
+    {
+      "name": "donutSubTitle",
+      "type": "text",
+      "defaultValue": "",
+      "label": "Sub Title",
+      "category": "Donut"
     }
   ]
 }

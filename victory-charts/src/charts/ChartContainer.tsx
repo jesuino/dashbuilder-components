@@ -5,8 +5,10 @@ import { LineChart } from './LineChart';
 import { DonutChart } from './DonutChart';
 import { PieChart } from './PieChart';
 import { StackChart } from './StackChart';
-import { PaddingProps } from 'victory-core';
-import { ThemeType, DataSet, ChartType, validateDataSetForChart, ValidationResult, LegendPosition } from './BaseChart';
+import { PaddingProps, AnimationEasing } from 'victory-core';
+import { ThemeType, DataSet, ChartType, LegendPosition, Grid, AnimationProp } from './BaseChart';
+import { ValidationResult, validateDataSetForChart } from './PropsValidation';
+import { UtilizationDonut } from './UtilizationDonut';
 
 interface Props {
 }
@@ -43,10 +45,14 @@ interface State {
   validation: ValidationResult;
   dataSet: DataSet;
   legendPosition: LegendPosition;
-  animate: boolean;
+  animation: AnimationProp;
   ariaTitle: string;
   ariaDescription: string;
-  padding: PaddingProps
+  padding: PaddingProps,
+  zoom: boolean,
+  grid: Grid,
+  donutTitle?: string,
+  donutSubTitle?: string
 }
 
 export class ChartContainer extends React.Component<Props, State>  {
@@ -67,11 +73,16 @@ export class ChartContainer extends React.Component<Props, State>  {
       validation: { isValid: true },
       dataSet: DEFAULT_DATASET,
       legendPosition: "bottom",
-      animate: false,
+      animation: {
+        enabled: false
+      },
       ariaTitle: "Chart Title",
       ariaDescription: "Chart Description",
-      padding: { bottom: 20, left: 0, right: 0, top: 0 }
+      zoom: false,
+      padding: { bottom: 20, left: 0, right: 0, top: 0 },
+      grid: { x: true, y: false }
     };
+
     this.handleResize = () => {
       if (this.containerRef.current && this.containerRef.current.clientWidth) {
         this.setState({ width: this.containerRef.current.clientWidth });
@@ -89,6 +100,23 @@ export class ChartContainer extends React.Component<Props, State>  {
       const paddingLeft = params.get("paddingLeft") || "0";
       const paddingTop = params.get("paddingTop") || "0";
 
+      const gridx = params.get("gridx") as unknown === "true";
+      const gridy = params.get("gridy") as unknown === "true";
+
+      const animation = params.get("animate") as unknown == "true";
+      const animationProp: AnimationProp = {
+        enabled: animation
+      }
+      if (animation) {
+        animationProp.duration = +(params.get("animationDuration") || "0")
+        animationProp.easing = (params.get("animationEasing") || "linear") as AnimationEasing;
+      }
+
+      const grid: Grid = {
+        x: gridx,
+        y: gridy
+      }
+
       const padding: PaddingProps = {
         bottom: +paddingBottom,
         right: +paddingRight,
@@ -100,11 +128,15 @@ export class ChartContainer extends React.Component<Props, State>  {
         theme: params.get("theme") as unknown as ThemeType || this.state.theme,
         dataSet: params.get("dataSet") as unknown as DataSet || this.state.dataSet,
         legendPosition: params.get("legendPosition") as unknown as LegendPosition || this.state.legendPosition,
-        animate: params.get("animate") as unknown === 'true',
+        animation: animationProp,
         ariaTitle: params.get("ariaTitle") as unknown as string,
         ariaDescription: params.get("ariaDescription") as unknown as string,
         padding: padding,
-        validation: validation
+        zoom: params.get("zoom") as unknown === 'true',
+        grid: grid,
+        validation: validation,
+        donutTitle: params.get("donutTitle") as any,
+        donutSubTitle: params.get("donutSubTitle") as any
       });
     }
 
@@ -122,6 +154,8 @@ export class ChartContainer extends React.Component<Props, State>  {
           return <PieChart {...this.state} />;
         case "stack":
           return <StackChart {...this.state} />;
+        case "utilization-donut":
+          return <UtilizationDonut  {...this.state} />;
       }
     };
   }

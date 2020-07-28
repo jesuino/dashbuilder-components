@@ -3,8 +3,6 @@ const message = document.getElementById("message");
 
 const elementHeats = new Map();
 
-
-
 function init() {
     window.addEventListener("message", receiveMessage, false);
 }
@@ -19,12 +17,12 @@ function receiveMessage(event) {
     cleanUp();
 
     if (!svg) {
-        message.textContent = "You must must provide a valid SVG";
+        message.textContent = "You must must provide a valid SVG.";
         return;
     }
 
     if (!dataSet) {
-        message.textContent = "You must must provide a valid SVG";
+        message.textContent = "You must must provide data.";
         return;
     }
 
@@ -40,7 +38,7 @@ function receiveMessage(event) {
     searchTaskNodes(svg, nodes, heats);
 
     let heatmapInstance = h337.create({
-        container: document.querySelector('.container')
+        container: document.querySelector('#svg-container')
     });
     drawHeatMap(heatmapInstance);
 }
@@ -73,7 +71,6 @@ function searchTaskNodes(svg, nodes, heats) {
             elementHeats.set(el, heats[taskNodeIndex]);
         }
     });
-
 }
 
 function getSize(el) {

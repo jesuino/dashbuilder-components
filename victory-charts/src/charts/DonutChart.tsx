@@ -1,26 +1,26 @@
 import React from 'react';
 
 import { ChartDonut } from '@patternfly/react-charts';
-import '@patternfly/patternfly/patternfly-charts.css'; // Required for mix-blend-mode CSS property
-import { BaseChart } from './BaseChart';
+import { PieBaseChart } from './PieBaseChart';
 
-export class DonutChart extends BaseChart {
+export class DonutChart extends PieBaseChart {
 
   render() {
     const { width, height, theme } = this.props;
     return (
       <ChartDonut
-        ariaDesc="Average number of pets"
-        ariaTitle="Donut chart example"
+        ariaDesc={this.props.ariaDescription}
+        ariaTitle={this.props.ariaTitle}
         constrainToVisibleArea={true}
         data={this.dataSetToPieChart()}
-        labels={({ datum }) => `${datum.x}: ${datum.y}%`}
+        labels={({ datum }) => `${datum.name}: ${datum.y}`}
         legendData={this.legendData}
-        legendOrientation="vertical"
-        legendPosition="right"
+        legendOrientation={this.legendOrientation}
+        legendPosition={this.pieLegendPosition()}
         padding={this.props.padding}
-        subTitle="Pets"
-        title="100"
+        animate={this.animationProp}
+        subTitle={this.props.donutSubTitle || ""}
+        title={this.props.donutTitle || ""}
         themeColor={theme}
         width={width}
         height={height}
