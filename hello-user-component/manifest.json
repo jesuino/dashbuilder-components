@@ -1,0 +1,13 @@
+{
+    "name": "Hello World",
+    "icon": "fa fa-bell-o",
+    "parameters": [
+        {
+            "name": "name",
+            "type": "text",
+            "defaultValue": "",
+            "label": "Your name"
+        }
+
+    ]
+}
