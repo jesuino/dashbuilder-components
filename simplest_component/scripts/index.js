@@ -1,11 +1,22 @@
+
+let id = "";
 function imageClicked() {
     alert("Dashbuilder logo!");
 }
 
 window.addEventListener("message", receiveMessage, false);
 
+function sendMessage(props) {
+    if (!props) {
+        props = new Map();
+    }
+    props.set("component_id", id);
+    window.parent.postMessage({
+        properties: props
+    });
+}
+
 function receiveMessage(event) {
-    console.log("Received message on component:");
     console.log(event.data);
     const params = new Map(event.data.properties);
     var fontSize = "10px";
@@ -14,6 +25,11 @@ function receiveMessage(event) {
     document.getElementById("name").innerHTML = params.get("name");
     document.getElementById("container").style.color = params.get("color");
     document.getElementById("container").style.border = params.get("border");
+
+    id = params.get("component_id");
+
+    document.getElementById("componentId").textContent = "ComponentID: " + id;
+
     if (params.get("size") === "true") {
         fontSize = "18px";
     }
@@ -41,8 +57,21 @@ function receiveMessage(event) {
         for (let j = 0; j < rows[i].length; j++) {
             const td = document.createElement("td");
             td.innerHTML = rows[i][j];
+            td.onclick = e => filter(false, j, i);
             tr.appendChild(td)
         }
         tableBody.appendChild(tr);
     }
+}
+
+function filter(reset, col, row) {
+    var props = new Map();
+
+    props.set("filter", {
+        reset: reset,
+        column: col,
+        row: row
+
+    })
+    sendMessage(props);
 }
