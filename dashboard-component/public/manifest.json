@@ -1,0 +1,14 @@
+{
+  "name": "Dashboard",
+  "icon": "fa fa-tachometer",
+  "parameters": [
+      {
+        "name": "donutTitle",
+        "type": "text",
+        "defaultValue": "Data",
+        "label": "Title",
+        "category": "Donut"
+      }
+
+  ]
+}
