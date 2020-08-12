@@ -6,7 +6,31 @@
             "name": "svg",
             "type": "text",
             "defaultValue": "",
-            "label": "Process SVG"
+            "label": "SVG XML",
+            "category": "SVG Content"
+        },
+        {
+            "name": "svgUrl",
+            "type": "text",
+            "defaultValue": "",
+            "label": "SVG URL",
+            "category": "SVG URL"
+        }
+        ,
+        {
+            "name": "ksContainer",
+            "type": "text",
+            "defaultValue": "",
+            "label": "Container ID",
+            "category": "Kie Server"
+        }
+        ,
+        {
+            "name": "ksProcessId",
+            "type": "text",
+            "defaultValue": "",
+            "label": "Process ID",
+            "category": "Kie Server"
         }
     ]
 }

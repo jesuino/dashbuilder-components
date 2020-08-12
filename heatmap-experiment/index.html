@@ -1,9 +1,23 @@
 <head>
-    <link rel="stylesheet" type="text/css" href="style.css" /> 
- </head>
+  <link rel="stylesheet" type="text/css" href="style.css" />
+</head>
+
 <body class="container" onload="init();">
+  <a href="#" onclick="disconnectFromKS();" id="disconnect">disconnect</a>
+  <em id="message"></em>
+  <div id="ksForm">
+    <label for="ksUrl">Kie Server URL</label>
+    <input type="text" id="ksUrl" name="ksUrl" placeholder="Kie Server URL" value="http://localhost:8080/kie-server">
+
+    <label for="ksUser">Username</label>
+    <input type="text" id="ksUser" name="ksUser" placeholder="User">
+    
+    <label for="ksPassword">Password</label>
+    <input type="password" id="ksPassword" name="ksPassword" placeholder="Password">
+
+    <button onclick="testConnection();">Test Connection</button>    
+  </div>
   <div id="svg-container" style="width: 100%; height: 100%;"></div>
-  <em id="message"></em>  
 </body>
 
 <script src="https://cdn.jsdelivr.net/npm/heatmapjs@2.0.2/heatmap.min.js"></script>
