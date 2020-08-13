@@ -10,14 +10,15 @@ import {
   CardBody,
 } from "@patternfly/react-core";
 import { ChartDonut } from "@patternfly/react-charts";
-import {
-  CheckCircleIcon,
-  ErrorCircleOIcon,
-  DisconnectedIcon,
-} from "@patternfly/react-icons";
 
-var Component = React.Component;
-export class ChartRow extends Component {
+export interface ChartProps {
+  Title?: string
+}
+
+interface State {
+  Title?: string
+}
+export class ChartRow extends React.Component<ChartProps, State> {
   render() {
     return (
       <Page>
@@ -25,56 +26,7 @@ export class ChartRow extends Component {
           <Card>
             <CardHeader>
               <Title headingLevel="h3" size="lg">
-                Status
-              </Title>
-            </CardHeader>
-            <CardBody>
-              <Flex>
-                <FlexItem>
-                  <div>
-                    <Flex>
-                      <FlexItem>
-                        <CheckCircleIcon color="green" />
-                      </FlexItem>
-                      <FlexItem>
-                        Data Index<div>healthy</div>
-                      </FlexItem>
-                    </Flex>
-                  </div>
-                </FlexItem>
-                <FlexItem>
-                  <div>
-                    <Flex>
-                      <FlexItem>
-                        <ErrorCircleOIcon color="red" />
-                      </FlexItem>
-                      <FlexItem>
-                        Job Service<div>in error</div>
-                      </FlexItem>
-                    </Flex>
-                  </div>
-                </FlexItem>
-                <FlexItem>
-                  <div>
-                    <Flex>
-                      <FlexItem>
-                        <DisconnectedIcon color="gray" />
-                      </FlexItem>
-                      <FlexItem>
-                        Data Index<div>disconnected</div>
-                      </FlexItem>
-                    </Flex>
-                  </div>
-                </FlexItem>
-              </Flex>
-            </CardBody>
-          </Card>
-        </PageSection>
-        <PageSection>
-          <Card>
-            <CardHeader>
-              <Title headingLevel="h3" size="lg">
-                Processes
+                {this.props.Title || "Processes"}
               </Title>
             </CardHeader>
             <CardBody>
@@ -90,20 +42,14 @@ export class ChartRow extends Component {
                         { x: "hotelbooking", y: 55 },
                       ]}
                       labels={({ datum }) => `${datum.x}: ${datum.y}`}
-                      // legendData={[
-                      //   { name: 'travel: 35' },
-                      //   { name: 'hotelbooking: 55' }
-                      // ]}
-                      // legendOrientation="vertical"
-                      // legendPosition="right"
                       padding={{
                         bottom: 0,
                         left: 0,
-                        right: 0, // Adjusted to accommodate legend
+                        right: 0, 
                         top: 0,
                       }}
-                      title="90"
-                      subTitle="Active"
+                      subTitle={"Active"}
+                      title={"90"}
                       width={350}
                     />
                   </div>
@@ -127,8 +73,8 @@ export class ChartRow extends Component {
                         right: 0,
                         top: 0,
                       }}
-                      title="762"
-                      subTitle="Completed"
+                      subTitle={"Completed"}
+                      title={"762"}
                       width={350}
                     />
                   </div>
@@ -151,8 +97,8 @@ export class ChartRow extends Component {
                         right: 0, 
                         top: 0,
                       }}
-                      title="7"
-                      subTitle="Aborted"
+                      subTitle={"Aborted"}
+                      title={"7"}
                       width={350}
                     />
                   </div>
@@ -172,11 +118,11 @@ export class ChartRow extends Component {
                       padding={{
                         bottom: 0,
                         left: 0,
-                        right: 0,
+                        right: 0, 
                         top: 0,
                       }}
-                      title="67"
-                      subTitle="Suspended"
+                      subTitle={"Suspended"}
+                      title={"67"}
                       width={350}
                     />
                   </div>
@@ -199,8 +145,8 @@ export class ChartRow extends Component {
                         right: 0,
                         top: 0,
                       }}
-                      title="11"
-                      subTitle="Error"
+                      subTitle={"Error"}
+                      title={"11"}
                       width={350}
                     />
                   </div>

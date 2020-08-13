@@ -1,13 +1,13 @@
 import React from 'react';
 import "@patternfly/react-core/dist/styles/base.css";
 import './App.css';
-import { ChartRow } from './ChartRow';
+import { Status } from './Status';
 
 function App() {
 
   return (
     <div className="App">
-      <ChartRow />
+      <Status />
     </div>
   );
 }
