@@ -36,6 +36,7 @@ export interface PieChartSerie extends ChartSeries {
 export interface Column {
     name: string;
     type: ColumnType;
+    settings: Object;
 }
 
 export interface DataSet {
@@ -53,6 +54,7 @@ export interface AnimationProp {
     duration?: number;
     easing?: AnimationEasing;
 }
+
 export interface LegendData {
     name: string;
 }

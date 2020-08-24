@@ -33,7 +33,7 @@ export abstract class XYChart extends BaseChart {
     abstract buildChartGroup(): ChartGroupType;
 
     categories() {
-        return this.props.dataSet.columns.slice(1).map(column => column.name);
+        return this.props.dataSet.columns.slice(1).map(column => column.settings["columnName"]);
     }
 
     dataSetToXYData(): XYChartSeries[] {
