@@ -26,11 +26,11 @@ interface Params {
 
 const DEFAULT_DATASET: DataSet = {
   columns: [
-    { name: "Animal", type: "TEXT", settings: { columnName: "New" } },
-    { name: "2017", type: "NUMBER", settings: { columnName: "New" } },
-    { name: "2018", type: "NUMBER", settings: { columnName: "New" } },
-    { name: "2019", type: "NUMBER", settings: { columnName: "New" } },
-    { name: "2020", type: "NUMBER", settings: { columnName: "New" } },
+    { name: "Animal", type: "TEXT", settings: { columnName: "New", valueExpression: "value", valuePattern: "value" } },
+    { name: "2017", type: "NUMBER", settings: { columnName: "New", valueExpression: "value", valuePattern: "value" } },
+    { name: "2018", type: "NUMBER", settings: { columnName: "New", valueExpression: "value", valuePattern: "value" } },
+    { name: "2019", type: "NUMBER", settings: { columnName: "New", valueExpression: "value", valuePattern: "value" } },
+    { name: "2020", type: "NUMBER", settings: { columnName: "New", valueExpression: "value", valuePattern: "value"} },
   ],
   data: [
     ["Pigs", "3", "7", "2", "9"],

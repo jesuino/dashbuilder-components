@@ -1,11 +1,11 @@
 import React from 'react';
 import { BaseChart, XYChartSeries, XYChartDataLine, XYChartData } from './BaseChart';
 import { Chart, ChartAxis, ChartGroup } from '@patternfly/react-charts';
+var numeral = require('numeral');
 
 export type ChartGroupType = typeof ChartGroup;
 
 export abstract class XYChart extends BaseChart {
-
     render() {
         const { width, height, theme } = this.props;
         return (
@@ -42,6 +42,13 @@ export abstract class XYChart extends BaseChart {
         const ds = this.props.dataSet;
         const rows = ds.data.length;
         const cols = ds.columns.length;
+        let getExpression = this.props.dataSet.columns.slice(1).map(column => column.settings["valueExpression"]);
+        let expression = Object.values(getExpression)[0].toString();
+        let exp = expression.replace("value", "1")
+        let getPattern = this.props.dataSet.columns.slice(1).map(column => column.settings["valuePattern"]);
+        let pattern = Object.values(getPattern)[0].toString();
+        let p = pattern.replace("#", "0");
+        console.log(p);
         const series: XYChartSeries[] = [];
 
         categories.forEach(name => groupedLines.set(name, []))
@@ -52,7 +59,7 @@ export abstract class XYChart extends BaseChart {
                 const cat = categories[j - 1];
                 groupedLines.get(cat)?.push({
                     x: name,
-                    y: +ds.data[i][j]
+                    y: numeral((+ds.data[i][j])*eval(exp)).format(p)
                 });
             }
         }
