@@ -47,8 +47,7 @@ export abstract class XYChart extends BaseChart {
         let exp = expression.replace("value", "1")
         let getPattern = this.props.dataSet.columns.slice(1).map(column => column.settings["valuePattern"]);
         let pattern = Object.values(getPattern)[0].toString();
-        let p = pattern.replace("#", "0");
-        console.log(p);
+       	let p = pattern.replace(/#/g, '0');
         const series: XYChartSeries[] = [];
 
         categories.forEach(name => groupedLines.set(name, []))
