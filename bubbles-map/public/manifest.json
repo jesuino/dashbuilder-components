@@ -12,7 +12,7 @@
       "name": "longitude",
       "type": "number",
       "defaultValue": "28.7041",
-      "label": "Marker Latitude"
+      "label": "Marker Longitude"
     }
   ]
 }
