@@ -6,11 +6,13 @@ var Component = React.Component;
 export interface LatLongProps {
   latitude?: number;
   longitude?: number;
+  title?: string;
 }
 
 interface State {
   latitude?: number;
   longitude?: number;
+  title?: string;
 }
 
 export class MapBubble extends Component<LatLongProps, State> {
@@ -20,18 +22,21 @@ export class MapBubble extends Component<LatLongProps, State> {
     super(props);
 
     this.state = {
-      latitude: 77.1025,
-      longitude: 28.7041,
+      latitude: 28.7041,
+      longitude: 77.1025,
+      title: "Most Populous Cities in Asia",
     };
     
     this.receiveEvent = (event: any) => {
       const params = event.data.properties as Map<string, object>;
       const latitude = params.get("latitude");
       const longitude = params.get("longitude");
+      const title = params.get("title");
 
       this.setState({
         latitude: params.get("latitude") as any,
         longitude: params.get("longitude") as any,
+        title: params.get("title") as any,
       });
     };
   }
@@ -48,6 +53,7 @@ export class MapBubble extends Component<LatLongProps, State> {
         <LatLong
           latitude={28.7041}
           longitude={77.1025}
+          title={"Most Populous cities in Asia"}
           {...this.state}
         />
       </div>

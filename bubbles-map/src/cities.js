@@ -15,10 +15,10 @@ let data = {
         { "name": "Kolkata", "coordinates": [88.3639, 22.5726], "population": 14667000 },
         { "name": "Istanbul", "coordinates": [28.9784, 41.0082], "population": 13287000 },
     ],
-    minLat: -6.1751,
-    maxLat: 55.7558,
-    minLong: 37.6173,
-    maxLong: 139.6917
+    minLat: -85,
+    maxLat: 85,
+    minLong: -180,
+    maxLong: 180
 }
 
 export default data

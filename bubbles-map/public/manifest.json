@@ -5,14 +5,20 @@
     {
       "name": "latitude",
       "type": "number",
-      "defaultValue": "77.1025",
-      "label": "Marker Latitude"
+      "defaultValue": "28.7041",
+      "label": "Centre and Marker Latitude"
     },
     {
       "name": "longitude",
       "type": "number",
-      "defaultValue": "28.7041",
-      "label": "Marker Longitude"
+      "defaultValue": "77.1025",
+      "label": "Center and Marker Longitude"
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "defaultValue": "Most Populous Cities in Asia",
+      "label": "Title"
     }
   ]
 }
