@@ -13,23 +13,36 @@ import data from "./cities";
 export interface LatLongProps {
   latitude?: number;
   longitude?: number;
+  titleenabled?: boolean;
   title?: string;
+  zoom?: number;
+  bubblecolor?: string;
 }
 
 interface State {
     latitude?: number;
     longitude?: number;
+    titleenabled?: boolean;
     title?: string;
+    zoom?: number;
+    bubblecolor?: string;
 }
 
 export class LatLong extends Component<LatLongProps, State> {
+  renderTitle(){
+    if(this.props.titleenabled==true){
+      return <h3 style={{ textAlign: "center" }}>{this.props.title || "Most Populous Cities in Asia"}</h3>;
+    }else{
+      return null;
+    }
+  }
   render() {
     return (
       <div>
-        <h3 style={{ textAlign: "center" }}>{this.props.title || "Most Populous Cities in Asia"}</h3>
+        {this.renderTitle()}
         <Map
           style={{ height: "480px", width: "100%" }}
-          zoom={1}
+          zoom={this.props.zoom || 1}
           center={[this.props.latitude, this.props.longitude]}
         >
           <TileLayer url="http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
@@ -41,6 +54,7 @@ export class LatLong extends Component<LatLongProps, State> {
                   key={k}
                   center={[city["coordinates"][1], city["coordinates"][0]]}
                   radius={20 * Math.log(city["population"] / 10000000)}
+                  color={this.props.bubblecolor||"black"}
                   fillOpacity={0.5}
                   stroke={false}
                 >

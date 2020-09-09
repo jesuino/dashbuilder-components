@@ -15,10 +15,28 @@
       "label": "Center and Marker Longitude"
     },
     {
+      "name": "titleenabled",
+      "type": "boolean",
+      "defaultValue": "false",
+      "label": "Disable Title"
+    },
+    {
       "name": "title",
       "type": "string",
       "defaultValue": "Most Populous Cities in Asia",
       "label": "Title"
+    },
+    {
+      "name": "zoom",
+      "type": "number",
+      "defaultValue": "1",
+      "label": "Zoom"
+    },
+    {
+      "name": "bubblecolor",
+      "type": "string",
+      "defaultValue": "blue",
+      "label": "Bubble color"
     }
   ]
 }
