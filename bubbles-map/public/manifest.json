@@ -4,13 +4,13 @@
   "parameters": [
     {
       "name": "latitude",
-      "type": "number",
+      "type": "natural_number",
       "defaultValue": "28.7041",
       "label": "Centre and Marker Latitude"
     },
     {
       "name": "longitude",
-      "type": "number",
+      "type": "natural_number",
       "defaultValue": "77.1025",
       "label": "Center and Marker Longitude"
     },
@@ -34,7 +34,7 @@
     },
     {
       "name": "bubblecolor",
-      "type": "string",
+      "type": "color",
       "defaultValue": "blue",
       "label": "Bubble color"
     }
