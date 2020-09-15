@@ -54,7 +54,7 @@ export class LatLong extends Component<LatLongProps, State> {
                   key={k}
                   center={[city["coordinates"][1], city["coordinates"][0]]}
                   radius={20 * Math.log(city["population"] / 10000000)}
-                  color={this.props.bubblecolor||"black"}
+                  color={("#"+this.props.bubblecolor) || "black"}
                   fillOpacity={0.5}
                   stroke={false}
                 >

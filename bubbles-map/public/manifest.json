@@ -35,7 +35,7 @@
     {
       "name": "bubblecolor",
       "type": "color",
-      "defaultValue": "blue",
+      "defaultValue": "2F7ECD",
       "label": "Bubble color"
     }
   ]
