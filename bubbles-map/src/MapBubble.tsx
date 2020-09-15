@@ -51,7 +51,7 @@ export class MapBubble extends Component<LatLongProps, State> {
         titleenabled: params.get("titleenabled") as unknown === "false",
         title: params.get("title") as any,
         zoom: params.get("zoom") as any,
-        bubblecolor: params.get("bubblecolor") as any,
+        bubblecolor: params.get("bubblecolor") ? "#" +params.get("bubblecolor")  : "blue",
       });
     };
   }
