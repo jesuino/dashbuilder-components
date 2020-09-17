@@ -1,0 +1,42 @@
+{
+  "name": "Bubbles map",
+  "icon": "fa fa-bell-o",
+  "parameters": [
+    {
+      "name": "latitude",
+      "type": "natural_number",
+      "defaultValue": "28.7041",
+      "label": "Centre and Marker Latitude"
+    },
+    {
+      "name": "longitude",
+      "type": "natural_number",
+      "defaultValue": "77.1025",
+      "label": "Center and Marker Longitude"
+    },
+    {
+      "name": "titleenabled",
+      "type": "boolean",
+      "defaultValue": "false",
+      "label": "Disable Title"
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "defaultValue": "Most Populous Cities in Asia",
+      "label": "Title"
+    },
+    {
+      "name": "zoom",
+      "type": "number",
+      "defaultValue": "1",
+      "label": "Zoom"
+    },
+    {
+      "name": "bubblecolor",
+      "type": "color",
+      "defaultValue": "2F7ECD",
+      "label": "Bubble color"
+    }
+  ]
+}
