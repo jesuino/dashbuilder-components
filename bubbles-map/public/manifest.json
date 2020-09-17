@@ -4,15 +4,15 @@
   "parameters": [
     {
       "name": "latitude",
-      "type": "natural_number",
+      "type": "text",
       "defaultValue": "28.7041",
-      "label": "Centre and Marker Latitude"
+      "label": "Center Latitude"
     },
     {
       "name": "longitude",
-      "type": "natural_number",
+      "type": "text",
       "defaultValue": "77.1025",
-      "label": "Center and Marker Longitude"
+      "label": "Center Longitude"
     },
     {
       "name": "titleenabled",
@@ -28,7 +28,7 @@
     },
     {
       "name": "zoom",
-      "type": "number",
+      "type": "natural_number",
       "defaultValue": "1",
       "label": "Zoom"
     },
@@ -37,6 +37,12 @@
       "type": "color",
       "defaultValue": "2F7ECD",
       "label": "Bubble color"
+    },
+    {
+      "name": "maxRadius",
+      "type": "natural_number",
+      "defaultValue": "20",
+      "label": "Bubble Max Radius"
     }
   ]
 }
