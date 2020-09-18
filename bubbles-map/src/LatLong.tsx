@@ -59,8 +59,8 @@ export class LatLong extends Component<LatLongProps, LatLongState> {
 
   render() {
     const allValues: number[] = this.props.data.map((d) => d.value);
-    const maxValue = Math.max.apply(Math, allValues);
-    const minValue = Math.min.apply(Math, allValues);
+    const maxValue = allValues.length > 0 ? Math.max.apply(Math, allValues) : this.props.maxRadius;
+    const minValue = allValues.length > 0 ? Math.min.apply(Math, allValues) : 0;
     return (
       <div>
         {this.renderTitle()}
