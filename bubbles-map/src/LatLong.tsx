@@ -1,11 +1,6 @@
 import React, { Component } from "react";
-import {Data} from "./Data"
-import {
-  Map,
-  CircleMarker,
-  TileLayer,
-  Tooltip
-} from "react-leaflet";
+import { Data } from "./Data";
+import { Map, CircleMarker, TileLayer, Tooltip, Viewport } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 
 export interface LatLongProps {
@@ -17,14 +12,25 @@ export interface LatLongProps {
   bubblecolor: string;
   data: Data[];
   maxRadius: number;
+  resizeBubbles: boolean;
 }
 
+export interface LatLongState {
+  currentZoom: number;
+}
 
 function map_range(value, low1, high1, low2, high2) {
-  return low2 + (high2 - low2) * (value - low1) / (high1 - low1);
+  return low2 + ((high2 - low2) * (value - low1)) / (high1 - low1);
 }
 
-export class LatLong extends Component<LatLongProps> {
+export class LatLong extends Component<LatLongProps, LatLongState> {
+  constructor(props: LatLongProps) {
+    super(props);
+    this.state = {
+      currentZoom: props.zoom,
+    };
+  }
+
   renderTitle() {
     if (this.props.titleenabled === true) {
       return <h3 style={{ textAlign: "center" }}>{this.props.title}</h3>;
@@ -32,8 +38,27 @@ export class LatLong extends Component<LatLongProps> {
       return null;
     }
   }
+
+  onViewPortChanged(viewPort: Viewport) {
+    console.log(viewPort);
+    if (this.props.resizeBubbles) {
+      this.setState({
+        currentZoom: viewPort.zoom || this.props.zoom,
+      });
+    }
+  }
+
+  zoomFactor(): number {
+    const currentZoom = this.state.currentZoom;
+    const userZoom = this.props.zoom;
+    if (currentZoom > userZoom) {
+      return currentZoom / userZoom;
+    }
+    return 1;
+  }
+
   render() {
-    const allValues: number[] = this.props.data.map(d => d.value);
+    const allValues: number[] = this.props.data.map((d) => d.value);
     const maxValue = Math.max.apply(Math, allValues);
     const minValue = Math.min.apply(Math, allValues);
     return (
@@ -43,26 +68,33 @@ export class LatLong extends Component<LatLongProps> {
           style={{ height: "480px", width: "100%" }}
           zoom={this.props.zoom}
           center={[this.props.latitude, this.props.longitude]}
+          onViewportChange={(viewPort) => this.onViewPortChanged(viewPort)}
         >
           <TileLayer url="http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
           {this.props.data.map((d) => {
             return (
-              <div>
+              <div key={d.name}>
                 <CircleMarker
                   key={d.name}
-                  center={[d.longitude, d.latitude]}
-                  radius={map_range(d.value, minValue, maxValue, 1, this.props.maxRadius)}
+                  center={[d.latitude, d.longitude]}
+                  radius={
+                    map_range(
+                      d.value,
+                      minValue,
+                      maxValue,
+                      1,
+                      this.props.maxRadius
+                    ) * this.zoomFactor()
+                  }
                   color={this.props.bubblecolor}
                   fillOpacity={0.5}
                   stroke={false}
                 >
                   <Tooltip direction="right" offset={[-8, -2]} opacity={1}>
-                    <span>
-                    {`${d.name}: ${d.value}`}
-                    </span>
+                    <span>{`${d.name}: ${d.value}`}</span>
                   </Tooltip>
-                </CircleMarker>                
+                </CircleMarker>
               </div>
             );
           })}

@@ -23,6 +23,8 @@ interface State {
   bubblecolor: string;
   maxRadius: number;
   data: Data[];
+  invalidDataSet: boolean;
+  resizeBubbles: boolean;
 }
 type ColumnType = "TEXT" | "LABEL" | "DATE" | "NUMBER";
 
@@ -36,12 +38,44 @@ interface DataSet {
   data: string[][];
 }
 
+// Default Values
 const CENTER = [28.7041, 77.1025];
 const TITLE_ENABLED = true;
 const TITLE = "Most Populous Cities in Asia";
 const ZOOM = 1;
 const COLOR = "blue";
 const MAX_RADIUS = 20;
+const RESIZE_BUBBLES = true;
+
+// constants
+const INVALID_DATASET_MESSAGE =
+  "Provided dataset is not valid. Please check Map Component instructions for more details. Showing sample data.";
+
+function validateDataset(dataSet: DataSet): boolean {
+  if (dataSet) {
+    const cols = dataSet.columns;
+
+    // Case where lat/long is possibly in a concatenate value divided by comma
+    if (cols.length === 3) {
+      return (
+        (cols[0].type === "TEXT" || cols[0].type === "LABEL") &&
+        cols[1].type === "NUMBER" &&
+        (cols[2].type === "TEXT" || cols[2].type === "LABEL")
+      );
+    }
+    // Case where lat and long are provided in different columns
+    if (cols.length === 4) {
+      return (
+        (cols[0].type === "TEXT" || cols[0].type === "LABEL") &&
+        cols[1].type === "NUMBER" &&
+        cols[2].type === "NUMBER" &&
+        cols[3].type === "NUMBER"
+      );
+    }
+  }
+
+  return false;
+}
 
 export class MapBubble extends Component<LatLongProps, State> {
   receiveEvent: (event: any) => void;
@@ -58,6 +92,8 @@ export class MapBubble extends Component<LatLongProps, State> {
       bubblecolor: COLOR,
       maxRadius: MAX_RADIUS,
       data: DefaulData,
+      resizeBubbles: RESIZE_BUBBLES,
+      invalidDataSet: false,
     };
 
     this.receiveEvent = (event: any) => {
@@ -69,14 +105,16 @@ export class MapBubble extends Component<LatLongProps, State> {
       const zoom = +(params.get("zoom") as any);
       const maxRadius = +(params.get("maxRadius") as any);
       const bubblecolor = (params.get("bubblecolor") as any) as string;
+      const resizeBubbles = (params.get("resizeBubbles") as any) === "true";
 
       const dataSet = params.get("dataSet") as DataSet;
 
       let data: Data[] = DefaulData;
 
-      // TODO: The dataset columns should be validated
+      let isValid = validateDataset(dataSet);
 
-      if (dataSet) {
+      // retrieving data
+      if (isValid) {
         data = [];
         const isLatLong = dataSet.columns[2].type === "TEXT";
 
@@ -100,7 +138,7 @@ export class MapBubble extends Component<LatLongProps, State> {
             longitude: longitude,
           });
         });
-      } 
+      }
 
       this.setState({
         latitude: latitude || CENTER[0],
@@ -110,7 +148,9 @@ export class MapBubble extends Component<LatLongProps, State> {
         zoom: zoom || ZOOM,
         bubblecolor: bubblecolor ? "#" + bubblecolor : COLOR,
         maxRadius: maxRadius || MAX_RADIUS,
-        data: data
+        data: data,
+        invalidDataSet: !isValid,
+        resizeBubbles: resizeBubbles,
       });
     };
   }
@@ -124,6 +164,13 @@ export class MapBubble extends Component<LatLongProps, State> {
   render() {
     return (
       <div style={{ width: "auto", height: "auto" }}>
+        {this.state.invalidDataSet ? (
+          <div>
+            <em>
+              <strong>{INVALID_DATASET_MESSAGE}</strong>
+            </em>
+          </div>
+        ) : null}
         <LatLong {...this.state} />
       </div>
     );

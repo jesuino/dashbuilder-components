@@ -43,6 +43,12 @@
       "type": "natural_number",
       "defaultValue": "20",
       "label": "Bubble Max Radius"
+    },
+    {
+      "name": "resizeBubbles",
+      "type": "boolean",
+      "defaultValue": "true",
+      "label": "Auto Resize Bubbles"
     }
   ]
 }
