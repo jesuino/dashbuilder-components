@@ -45,6 +45,12 @@
       "label": "Bubble Max Radius"
     },
     {
+      "name": "minRadius",
+      "type": "natural_number",
+      "defaultValue": "2",
+      "label": "Bubble Min Radius"
+    },
+    {
       "name": "resizeBubbles",
       "type": "boolean",
       "defaultValue": "true",

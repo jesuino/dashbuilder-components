@@ -12,6 +12,7 @@ export interface LatLongProps {
   bubblecolor: string;
   data: Data[];
   maxRadius: number;
+  minRadius: number;
   resizeBubbles: boolean;
 }
 
@@ -40,7 +41,6 @@ export class LatLong extends Component<LatLongProps, LatLongState> {
   }
 
   onViewPortChanged(viewPort: Viewport) {
-    console.log(viewPort);
     if (this.props.resizeBubbles) {
       this.setState({
         currentZoom: viewPort.zoom || this.props.zoom,
@@ -59,8 +59,8 @@ export class LatLong extends Component<LatLongProps, LatLongState> {
 
   render() {
     const allValues: number[] = this.props.data.map((d) => d.value);
-    const maxValue = allValues.length > 0 ? Math.max.apply(Math, allValues) : this.props.maxRadius;
-    const minValue = allValues.length > 0 ? Math.min.apply(Math, allValues) : 0;
+    const maxValue = allValues.length > 1 ? Math.max.apply(Math, allValues) : allValues[0];
+    const minValue = allValues.length > 1 ? Math.min.apply(Math, allValues) : 0;
     return (
       <div>
         {this.renderTitle()}
@@ -83,7 +83,7 @@ export class LatLong extends Component<LatLongProps, LatLongState> {
                       d.value,
                       minValue,
                       maxValue,
-                      1,
+                      this.props.minRadius,
                       this.props.maxRadius
                     ) * this.zoomFactor()
                   }

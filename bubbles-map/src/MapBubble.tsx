@@ -5,27 +5,6 @@ import { Data } from "./Data";
 import { DefaulData } from "./SampleData";
 var Component = React.Component;
 
-export interface LatLongProps {
-  latitude?: number;
-  longitude?: number;
-  titleenabled?: boolean;
-  title?: string;
-  zoom?: number;
-  bubblecolor?: string;
-}
-
-interface State {
-  latitude: number;
-  longitude: number;
-  titleenabled: boolean;
-  title: string;
-  zoom: number;
-  bubblecolor: string;
-  maxRadius: number;
-  data: Data[];
-  invalidDataSet: boolean;
-  resizeBubbles: boolean;
-}
 type ColumnType = "TEXT" | "LABEL" | "DATE" | "NUMBER";
 
 interface Column {
@@ -45,6 +24,7 @@ const TITLE = "Most Populous Cities in Asia";
 const ZOOM = 1;
 const COLOR = "blue";
 const MAX_RADIUS = 20;
+const MIN_RADIUS = 2;
 const RESIZE_BUBBLES = true;
 
 // constants
@@ -77,6 +57,29 @@ function validateDataset(dataSet: DataSet): boolean {
   return false;
 }
 
+export interface LatLongProps {
+  latitude?: number;
+  longitude?: number;
+  titleenabled?: boolean;
+  title?: string;
+  zoom?: number;
+  bubblecolor?: string;
+}
+
+interface State {
+  latitude: number;
+  longitude: number;
+  titleenabled: boolean;
+  title: string;
+  zoom: number;
+  bubblecolor: string;
+  maxRadius: number;
+  minRadius: number;
+  data: Data[];
+  invalidDataSet: boolean;
+  resizeBubbles: boolean;
+}
+
 export class MapBubble extends Component<LatLongProps, State> {
   receiveEvent: (event: any) => void;
 
@@ -91,6 +94,7 @@ export class MapBubble extends Component<LatLongProps, State> {
       zoom: ZOOM,
       bubblecolor: COLOR,
       maxRadius: MAX_RADIUS,
+      minRadius: MIN_RADIUS,
       data: DefaulData,
       resizeBubbles: RESIZE_BUBBLES,
       invalidDataSet: false,
@@ -104,6 +108,7 @@ export class MapBubble extends Component<LatLongProps, State> {
       const title = (params.get("title") as any) as string;
       const zoom = +(params.get("zoom") as any);
       const maxRadius = +(params.get("maxRadius") as any);
+      const minRadius = +(params.get("minRadius") as any);
       const bubblecolor = (params.get("bubblecolor") as any) as string;
       const resizeBubbles = (params.get("resizeBubbles") as any) === "true";
 
@@ -148,6 +153,7 @@ export class MapBubble extends Component<LatLongProps, State> {
         zoom: zoom || ZOOM,
         bubblecolor: bubblecolor ? "#" + bubblecolor : COLOR,
         maxRadius: maxRadius || MAX_RADIUS,
+        minRadius: minRadius || MIN_RADIUS,
         data: data,
         invalidDataSet: !isValid,
         resizeBubbles: resizeBubbles,
