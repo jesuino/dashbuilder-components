@@ -41,6 +41,7 @@ export class LatLong extends Component<LatLongProps, LatLongState> {
   }
 
   onViewPortChanged(viewPort: Viewport) {
+    console.debug(viewPort);
     if (this.props.resizeBubbles) {
       this.setState({
         currentZoom: viewPort.zoom || this.props.zoom,
@@ -59,7 +60,8 @@ export class LatLong extends Component<LatLongProps, LatLongState> {
 
   render() {
     const allValues: number[] = this.props.data.map((d) => d.value);
-    const maxValue = allValues.length > 1 ? Math.max.apply(Math, allValues) : allValues[0];
+    const maxValue =
+      allValues.length > 1 ? Math.max.apply(Math, allValues) : allValues[0];
     const minValue = allValues.length > 1 ? Math.min.apply(Math, allValues) : 0;
     return (
       <div>
