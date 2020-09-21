@@ -1,76 +1,102 @@
 import React, { Component } from "react";
-import {
-  Map,
-  CircleMarker,
-  TileLayer,
-  Tooltip,
-  Marker,
-  Popup,
-} from "react-leaflet";
+import { Data } from "./Data";
+import { Map, CircleMarker, TileLayer, Tooltip, Viewport } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import data from "./cities";
 
 export interface LatLongProps {
-  latitude?: number;
-  longitude?: number;
-  titleenabled?: boolean;
-  title?: string;
-  zoom?: number;
-  bubblecolor?: string;
+  latitude: number;
+  longitude: number;
+  titleenabled: boolean;
+  title: string;
+  zoom: number;
+  bubblecolor: string;
+  data: Data[];
+  maxRadius: number;
+  minRadius: number;
+  resizeBubbles: boolean;
 }
 
-interface State {
-    latitude?: number;
-    longitude?: number;
-    titleenabled?: boolean;
-    title?: string;
-    zoom?: number;
-    bubblecolor?: string;
+export interface LatLongState {
+  currentZoom: number;
 }
 
-export class LatLong extends Component<LatLongProps, State> {
-  renderTitle(){
-    if(this.props.titleenabled==true){
-      return <h3 style={{ textAlign: "center" }}>{this.props.title || "Most Populous Cities in Asia"}</h3>;
-    }else{
+function map_range(value, low1, high1, low2, high2) {
+  return low2 + ((high2 - low2) * (value - low1)) / (high1 - low1);
+}
+
+export class LatLong extends Component<LatLongProps, LatLongState> {
+  constructor(props: LatLongProps) {
+    super(props);
+    this.state = {
+      currentZoom: props.zoom,
+    };
+  }
+
+  renderTitle() {
+    if (this.props.titleenabled === true) {
+      return <h3 style={{ textAlign: "center" }}>{this.props.title}</h3>;
+    } else {
       return null;
     }
   }
+
+  onViewPortChanged(viewPort: Viewport) {
+    console.debug(viewPort);
+    if (this.props.resizeBubbles) {
+      this.setState({
+        currentZoom: viewPort.zoom || this.props.zoom,
+      });
+    }
+  }
+
+  zoomFactor(): number {
+    const currentZoom = this.state.currentZoom;
+    const userZoom = this.props.zoom;
+    if (currentZoom > userZoom) {
+      return currentZoom / userZoom;
+    }
+    return 1;
+  }
+
   render() {
+    const allValues: number[] = this.props.data.map((d) => d.value);
+    const maxValue =
+      allValues.length > 1 ? Math.max.apply(Math, allValues) : allValues[0];
+    const minValue = allValues.length > 1 ? Math.min.apply(Math, allValues) : 0;
     return (
       <div>
         {this.renderTitle()}
         <Map
           style={{ height: "480px", width: "100%" }}
-          zoom={this.props.zoom || 1}
+          zoom={this.props.zoom}
           center={[this.props.latitude, this.props.longitude]}
+          onViewportChange={(viewPort) => this.onViewPortChanged(viewPort)}
         >
           <TileLayer url="http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
-          {data.city.map((city, k) => {
+          {this.props.data.map((d) => {
             return (
-              <div>
+              <div key={d.name}>
                 <CircleMarker
-                  key={k}
-                  center={[city["coordinates"][1], city["coordinates"][0]]}
-                  radius={20 * Math.log(city["population"] / 10000000)}
-                  color={(this.props.bubblecolor) ||"blue"}
+                  key={d.name}
+                  center={[d.latitude, d.longitude]}
+                  radius={
+                    map_range(
+                      d.value,
+                      minValue,
+                      maxValue,
+                      this.props.minRadius,
+                      this.props.maxRadius
+                    ) * this.zoomFactor()
+                  }
+                  color={this.props.bubblecolor}
                   fillOpacity={0.5}
                   stroke={false}
                 >
                   <Tooltip direction="right" offset={[-8, -2]} opacity={1}>
-                    <span>
-                      {city["name"] +
-                        ": " +
-                        "Population" +
-                        " " +
-                        city["population"]}
-                    </span>
+                    <span>{`${d.name}: ${d.value}`}</span>
                   </Tooltip>
                 </CircleMarker>
-                <Marker position={[this.props.latitude, this.props.longitude]}><Popup>
-            <span>You marked this</span>
-          </Popup></Marker>
               </div>
             );
           })}
