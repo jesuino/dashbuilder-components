@@ -20,7 +20,10 @@ function receiveMessage(event) {
     const row = dataSet.data[0];
     let i = 0;
     if (supportsImage) {
+      avatar.style.display = "block";
       avatar.src = row[i++];
+    } else { 
+      avatar.style.display = "none";
     }
     cardTitle.innerText = row[i++];
     cardDesc.innerText = row[i];
