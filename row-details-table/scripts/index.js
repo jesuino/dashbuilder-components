@@ -18,7 +18,7 @@ function receiveMessage(event) {
   document.getElementById("tblHeader").style.backgroundColor = headerBgColor;
   document.getElementById("tblBody").style.color = rowsTextColor;
 
-  tblBody.childNodes.forEach((c) => c.remove());
+  document.querySelectorAll("tbody>tr").forEach((c) => c.remove());
 
   // TODO: Support for all rows in future with a navigation button
   if (dataSet && dataSet.data.length > 0 && dataSet.columns.length > 0) {

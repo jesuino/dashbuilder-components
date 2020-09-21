@@ -1,0 +1,19 @@
+{
+  "name": "Card",
+  "parameters": [
+    {
+      "name": "supportsAvatar",
+      "type": "boolean",
+      "defaultValue": "false",
+      "label": "Supports Avatar",
+      "category": "Avatar"
+    },
+    {
+      "name": "avatarStyle",
+      "type": "text",
+      "defaultValue": "",
+      "label": "Avatar Style",
+      "category": "Avatar"
+    }
+  ]
+}
