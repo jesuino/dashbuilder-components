@@ -1,0 +1,36 @@
+table {
+  table-layout: fixed;
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px;
+  display: table;
+  box-sizing: border-box;
+  border-spacing: 2px;
+  border-color: grey;
+  border-spacing: 2px;
+  vertical-align: middle;
+}
+tbody {
+  display: table-row-group;
+}
+td {
+  border-spacing: 2px;
+  height: 26px;
+  padding: 8px 10px;
+}
+tr {
+  border-bottom: 1px solid #ebebeb;
+  display: table-row;
+}
+th {
+  color: #000;
+  font-weight: bolder;
+  text-align: left;
+  display: table-cell;
+  height: 26px;
+  padding: 8px 10px;
+  vertical-align: top;
+}
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}

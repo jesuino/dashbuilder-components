@@ -1,0 +1,61 @@
+{
+  "name": "Row Details",
+  "parameters": [
+    {
+      "name": "columnsName",
+      "type": "text",
+      "defaultValue": "Column",
+      "label": "Columns Column Name",
+      "category": "Header"
+    },
+    {
+      "name": "valuesName",
+      "type": "text",
+      "defaultValue": "Values",
+      "label": "Values Column Name",
+      "category": "Header"
+    },
+    {
+      "name": "headerBgColor",
+      "type": "color",
+      "defaultValue": "white",
+      "label": "Background Color",
+      "category": "Header"
+    },
+    {
+      "name": "headerTextColor",
+      "type": "color",
+      "defaultValue": "black",
+      "label": "Text Color",
+      "category": "Header"
+    },
+    {
+      "name": "zebra",
+      "type": "boolean",
+      "defaultValue": "true",
+      "label": "Zebra Strip",
+      "category": "Rows"
+    },
+    {
+      "name": "stripColor",
+      "type": "color",
+      "defaultValue": "lightgray",
+      "label": "Strip Color",
+      "category": "Rows"
+    },
+    {
+      "name": "rowsBgColor",
+      "type": "color",
+      "defaultValue": "white",
+      "label": "Background Color",
+      "category": "Rows"
+    },
+    {
+      "name": "rowsTextColor",
+      "type": "color",
+      "defaultValue": "black",
+      "label": "Text Color",
+      "category": "Rows"
+    }
+  ]
+}
