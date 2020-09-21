@@ -21,7 +21,8 @@ function receiveMessage(event) {
     let i = 0;
     if (supportsImage) {
       avatar.style.display = "block";
-      avatar.src = row[i++];
+      avatar.src = row[i++] || "./no-image.png";
+
     } else { 
       avatar.style.display = "none";
     }
