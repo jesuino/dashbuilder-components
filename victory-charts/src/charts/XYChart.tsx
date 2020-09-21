@@ -63,10 +63,6 @@ export abstract class XYChart extends BaseChart {
       .slice(0)
       .map((column) => column.settings["valueExpression"]);
     let getcolumn1Expression = Object.values(getcolumnExpression)[0].toString();
-    let column1expression = getcolumn1Expression
-      .replace("value", "")
-      .replace("+", "")
-      .slice(1, -1);
     let getExpression = this.props.dataSet.columns
       .slice(1)
       .map((column) => column.settings["valueExpression"]);
@@ -81,7 +77,7 @@ export abstract class XYChart extends BaseChart {
       for (let j = 1; j < cols; j++) {
         const cat = categories[j - 1];
         groupedLines.get(cat)?.push({
-          x: name + column1expression,
+          x: eval(getcolumn1Expression.replace("value",'"' + name + '"')),
           y: numeral(+ds.data[i][j] * eval(exp)).format(this.pattern()),
         });
       }
