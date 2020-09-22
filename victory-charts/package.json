@@ -16,11 +16,12 @@
     "numeral": "^2.0.6",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.1",
+    "react-scripts": "^3.4.3",
+    "sortedmap": "^0.0.2",
     "typescript": "~3.7.2"
   },
   "scripts": {
-    "copy": "cp build/* /tmp/dashbuilder/components/victory-charts -r",
+    "copy": "cp build/* . -r",
     "start": "react-scripts start",
     "build": "react-scripts build && yarn run copy",
     "test": "react-scripts test",
@@ -42,4 +43,3 @@
     ]
   }
 }
-
