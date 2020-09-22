@@ -1,17 +1,23 @@
-import React from 'react';
-import { AreaChart } from './AreaChart';
-import { BarChart } from './BarChart';
-import { LineChart } from './LineChart';
-import { DonutChart } from './DonutChart';
-import { PieChart } from './PieChart';
-import { StackChart } from './StackChart';
-import { PaddingProps, AnimationEasing } from 'victory-core';
-import { ThemeType, DataSet, ChartType, LegendPosition, Grid, AnimationProp } from './BaseChart';
-import { ValidationResult, validateDataSetForChart } from './PropsValidation';
-import { UtilizationDonut } from './UtilizationDonut';
+import React from "react";
+import { AreaChart } from "./AreaChart";
+import { BarChart } from "./BarChart";
+import { LineChart } from "./LineChart";
+import { DonutChart } from "./DonutChart";
+import { PieChart } from "./PieChart";
+import { StackChart } from "./StackChart";
+import { PaddingProps, AnimationEasing } from "victory-core";
+import {
+  ThemeType,
+  DataSet,
+  ChartType,
+  LegendPosition,
+  Grid,
+  AnimationProp,
+} from "./BaseChart";
+import { ValidationResult, validateDataSetForChart } from "./PropsValidation";
+import { UtilizationDonut } from "./UtilizationDonut";
 
-interface Props {
-}
+interface Props {}
 
 interface Params {
   chartType: ChartType;
@@ -20,12 +26,11 @@ interface Params {
 
 const DEFAULT_DATASET: DataSet = {
   columns: [
-    { name: "Animal", type: "TEXT" },
-    { name: "2017", type: "NUMBER" },
-    { name: "2018", type: "NUMBER" },
-    { name: "2019", type: "NUMBER" },
-    { name: "2020", type: "NUMBER" }
-
+    { name: "Animal", type: "TEXT", settings: { columnName: "New", valueExpression: "value", valuePattern: "value" } },
+    { name: "2017", type: "NUMBER", settings: { columnName: "New", valueExpression: "value", valuePattern: "value" } },
+    { name: "2018", type: "NUMBER", settings: { columnName: "New", valueExpression: "value", valuePattern: "value" } },
+    { name: "2019", type: "NUMBER", settings: { columnName: "New", valueExpression: "value", valuePattern: "value" } },
+    { name: "2020", type: "NUMBER", settings: { columnName: "New", valueExpression: "value", valuePattern: "value"} },
   ],
   data: [
     ["Pigs", "3", "7", "2", "9"],
@@ -34,8 +39,8 @@ const DEFAULT_DATASET: DataSet = {
     ["Horses", "6", "2", "2", "3"],
     ["Cows", "1", "2", "4", "8"],
     ["Cats", "1", "2", "2", "4"],
-  ]
-}
+  ],
+};
 
 interface State {
   width: number;
@@ -48,15 +53,14 @@ interface State {
   animation: AnimationProp;
   ariaTitle: string;
   ariaDescription: string;
-  padding: PaddingProps,
-  zoom: boolean,
-  grid: Grid,
-  donutTitle?: string,
-  donutSubTitle?: string
+  padding: PaddingProps;
+  zoom: boolean;
+  grid: Grid;
+  donutTitle?: string;
+  donutSubTitle?: string;
 }
 
-export class ChartContainer extends React.Component<Props, State>  {
-
+export class ChartContainer extends React.Component<Props, State> {
   containerRef: React.RefObject<any>;
   handleResize: () => void;
   selectChart: (type: ChartType) => JSX.Element;
@@ -69,18 +73,18 @@ export class ChartContainer extends React.Component<Props, State>  {
       width: 600,
       height: 300,
       type: "stack",
-      theme: 'multi-ordered',
+      theme: "multi-ordered",
       validation: { isValid: true },
       dataSet: DEFAULT_DATASET,
       legendPosition: "bottom",
       animation: {
-        enabled: false
+        enabled: false,
       },
       ariaTitle: "Chart Title",
       ariaDescription: "Chart Description",
       zoom: false,
       padding: { bottom: 20, left: 0, right: 0, top: 0 },
-      grid: { x: true, y: false }
+      grid: { x: true, y: false },
     };
 
     this.handleResize = () => {
@@ -92,7 +96,7 @@ export class ChartContainer extends React.Component<Props, State>  {
     this.receiveEvent = (event: any) => {
       const params = event.data.properties as Map<string, object>;
       const dataSet = params.get("dataSet") as DataSet;
-      const chartType = params.get("chartType") as unknown as ChartType;
+      const chartType = (params.get("chartType") as unknown) as ChartType;
       const validation = validateDataSetForChart(chartType, dataSet);
 
       const paddingBottom = params.get("paddingBottom") || "0";
@@ -100,50 +104,58 @@ export class ChartContainer extends React.Component<Props, State>  {
       const paddingLeft = params.get("paddingLeft") || "0";
       const paddingTop = params.get("paddingTop") || "0";
 
-      const gridx = params.get("gridx") as unknown === "true";
-      const gridy = params.get("gridy") as unknown === "true";
+      const gridx = (params.get("gridx") as unknown) === "true";
+      const gridy = (params.get("gridy") as unknown) === "true";
 
-      const animation = params.get("animate") as unknown == "true";
+      const animation = (params.get("animate") as unknown) == "true";
       const animationProp: AnimationProp = {
-        enabled: animation
-      }
+        enabled: animation,
+      };
       if (animation) {
-        animationProp.duration = +(params.get("animationDuration") || "0")
-        animationProp.easing = (params.get("animationEasing") || "linear") as AnimationEasing;
+        animationProp.duration = +(params.get("animationDuration") || "0");
+        animationProp.easing = (params.get("animationEasing") ||
+          "linear") as AnimationEasing;
       }
 
       const grid: Grid = {
         x: gridx,
-        y: gridy
-      }
+        y: gridy,
+      };
 
       const padding: PaddingProps = {
         bottom: +paddingBottom,
         right: +paddingRight,
         left: +paddingLeft,
-        top: +paddingTop
-      }
+        top: +paddingTop,
+      };
+
       this.setState({
-        type: params.get("chartType") as unknown as ChartType || this.state.type,
-        theme: params.get("theme") as unknown as ThemeType || this.state.theme,
-        dataSet: params.get("dataSet") as unknown as DataSet || this.state.dataSet,
-        legendPosition: params.get("legendPosition") as unknown as LegendPosition || this.state.legendPosition,
+        type:
+          ((params.get("chartType") as unknown) as ChartType) ||
+          this.state.type,
+        theme:
+          ((params.get("theme") as unknown) as ThemeType) || this.state.theme,
+        dataSet:
+          ((params.get("dataSet") as unknown) as DataSet) || this.state.dataSet,
+        legendPosition:
+          ((params.get("legendPosition") as unknown) as LegendPosition) ||
+          this.state.legendPosition,
         animation: animationProp,
-        ariaTitle: params.get("ariaTitle") as unknown as string,
-        ariaDescription: params.get("ariaDescription") as unknown as string,
+        ariaTitle: (params.get("ariaTitle") as unknown) as string,
+        ariaDescription: (params.get("ariaDescription") as unknown) as string,
         padding: padding,
-        zoom: params.get("zoom") as unknown === 'true',
+        zoom: (params.get("zoom") as unknown) === "true",
         grid: grid,
         validation: validation,
         donutTitle: params.get("donutTitle") as any,
-        donutSubTitle: params.get("donutSubTitle") as any
+        donutSubTitle: params.get("donutSubTitle") as any,
       });
-    }
+    };
 
     this.selectChart = (type: ChartType) => {
       switch (type) {
         case "area":
-          return <AreaChart {...this.state} />
+          return <AreaChart {...this.state} />;
         case "bar":
           return <BarChart {...this.state} />;
         case "line":
@@ -155,27 +167,31 @@ export class ChartContainer extends React.Component<Props, State>  {
         case "stack":
           return <StackChart {...this.state} />;
         case "utilization-donut":
-          return <UtilizationDonut  {...this.state} />;
+          return <UtilizationDonut {...this.state} />;
       }
     };
   }
 
   componentDidMount() {
     this.handleResize();
-    window.addEventListener('resize', this.handleResize);
-    window.addEventListener('message', this.receiveEvent, false);
+    window.addEventListener("resize", this.handleResize);
+    window.addEventListener("message", this.receiveEvent, false);
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.handleResize);
-    window.removeEventListener('message', this.receiveEvent, false);
+    window.removeEventListener("resize", this.handleResize);
+    window.removeEventListener("message", this.receiveEvent, false);
   }
 
   render() {
     const { type, validation } = this.state;
     return (
-      <div ref={this.containerRef} style={{ width: 'auto', height: 'auto' }}>
-        {validation.isValid ? this.selectChart(type) : <em>{validation.message}</em>}
+      <div ref={this.containerRef} style={{ width: "auto", height: "auto" }}>
+        {validation.isValid ? (
+          this.selectChart(type)
+        ) : (
+          <em>{validation.message}</em>
+        )}
       </div>
     );
   }
