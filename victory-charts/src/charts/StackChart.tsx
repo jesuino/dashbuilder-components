@@ -11,7 +11,7 @@ export class StackChart extends XYChart {
       <ChartStack>
         {this.dataSetToXYData()
           .map(line => this.seriesLines(line))
-          .map((lineData, i) => <ChartBar key={i} data={lineData} labelComponent={<ChartTooltip constrainToVisibleArea />} />)}
+          .map((lineData, i) => <ChartBar key={i} data={lineData} labelComponent={<ChartTooltip constrainToVisibleArea />} y = {(d) => d.yVal} />)}
       </ChartStack>
     );
   }

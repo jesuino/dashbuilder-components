@@ -11,7 +11,7 @@ export class AreaChart extends XYChart {
       <ChartGroup>
         {this.dataSetToXYData()
           .map(line => this.seriesLines(line))
-          .map((lineData, i) => <ChartArea key={i} data={lineData} interpolation="monotoneX" />)}
+          .map((lineData, i) => <ChartArea key={i} data={lineData} interpolation="monotoneX" y = {(d) => d.yVal} />)}
       </ChartGroup>
     );
   }
