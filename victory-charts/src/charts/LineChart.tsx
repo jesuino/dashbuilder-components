@@ -11,7 +11,7 @@ export class LineChart extends XYChart {
         {this.dataSetToXYData()
           .map(line => this.seriesLines(line))
           .map((lineData, i) =>
-            <ChartLine key={i} data={lineData} />
+            <ChartLine key={i} data={lineData} y = {(d) => d.yVal} />
           )}
       </ChartGroup>
     );
