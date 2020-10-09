@@ -1,7 +1,7 @@
 Function Name <input type="text" id="functionName" /><button
-  onclick="findGWTFunction()"
+  onclick="callFunction()"
 >
-  Find GWT Function
+  Call Function
 </button>
 
 <h3>Result:</h3>
@@ -33,7 +33,7 @@ Function Name <input type="text" id="functionName" /><button
     console.log(message);
   }
 
-  function findGWTFunction() {
+  function callFunction() {
     const props = new Map();
     props.set("component_id", id);
     props.set("functionCallRequest", {

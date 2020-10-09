@@ -12,6 +12,7 @@ function sendMessage(props) {
     }
     props.set("component_id", id);
     window.parent.postMessage({
+        type: "FILTER",
         properties: props
     });
 }

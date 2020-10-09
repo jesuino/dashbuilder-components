@@ -1,0 +1,39 @@
+<button onclick="sendConfigurationIssue()">Send Configuration Issue</button>
+
+<p id="result"></p>
+
+<script type="text/javascript">
+  window.addEventListener("message", receiveMessage, false);
+
+  function receiveMessage(event) {
+    const message = event.data;
+    const type = message.type;
+
+    if (type === "INIT") {
+      id = message.properties.get("component_id");
+      document.getElementById(
+        "result"
+      ).innerHTML = `<em>Component started. ID is: <b> ${id}</b>`;
+    }
+  }
+
+  function sendConfigurationIssue() {
+    const props = new Map();
+
+    props.set("component_id", id);
+    props.set(
+      "configurationIssue",
+      "<<Message from component with more details | configuration will be auto fixed soon>>"
+    );
+    window.parent.postMessage({
+      type: "FIX_CONFIGURATION",
+      properties: props,
+    });
+    setTimeout(() => {
+      window.parent.postMessage({
+        type: "CONFIGURATION_OK",
+        properties: props,
+      });
+    }, 5000);
+  }
+</script>
