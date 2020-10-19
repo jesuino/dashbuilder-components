@@ -1,11 +1,11 @@
 import React from 'react';
-import BarChartRace from './BarChartRace';
+import {ChartRace} from './ChartRace';
 
 function App() {
 
   return (
     <div className="App">
-      <BarChartRace />
+      <ChartRace />
     </div>
   );
 }
