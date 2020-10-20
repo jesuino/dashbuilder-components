@@ -1,6 +1,7 @@
 import React from "react";
-import BarChartRace from "./BarChartRace";
+import {BarChartRace, BarChartRaceProps} from "./BarChartRace";
 import DefaultData from "./SampleData";
+
 var Component = React.Component;
 
 type ColumnType = "TEXT" | "LABEL" | "NUMBER";
@@ -12,20 +13,13 @@ interface Column {
 
 interface DataSet {
   columns: Column[];
-  data: Object;
+  data: Map<string, Array<string>>;
 }
 
 // Default Values
 const TITLE_ENABLED = true;
 const TITLE = "Sample Data";
 const TIMELINE= Array(20).fill(0).map((itm, idx) => String(idx + 1));
-
-export interface BarChartRaceProps {
-  titleenabled?: boolean;
-  title?: string;
-  data?: Object;
-  timeline?: string[];
-}
 
 interface State {
   titleenabled: boolean;
@@ -34,7 +28,7 @@ interface State {
   timeline: string[];
 }
 
-export class ChartRace extends Component<BarChartRaceProps, State> {
+export class ChartRace extends Component<any, State> {
   receiveEvent: (event: any) => void;
 
   constructor(props: BarChartRaceProps) {
@@ -44,7 +38,7 @@ export class ChartRace extends Component<BarChartRaceProps, State> {
       titleenabled: TITLE_ENABLED,
       title: TITLE,
       data: DefaultData,
-      timeline: TIMELINE,
+      timeline: TIMELINE
     };
 
     this.receiveEvent = (event: any) => {

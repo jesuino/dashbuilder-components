@@ -4,26 +4,24 @@ import BarChart from "chart-race-react";
 export interface BarChartRaceProps {
   titleenabled: boolean;
   title: string;
-  data: Object;
+  data: Map<string, Array<string>>;
   timeline: string[];
 }
 
 export interface BarChartRaceState {
 }
 const colorsrange=["#1f77b4","#ff7f0e","#2ca02c","#d62728","#9467bd","#8c564b","#e377c2","#7f7f7f","#bcbd22","#17becf"];
-const randomColor = () => {
-  return colorsrange[Math.floor(Math.random() * colorsrange.length)];;
-};
 
 function len(data: Object) {
   return Object.keys(data).length;
 }
 
 function colors(data: Object) {
+  let i=0;
   return Object.keys(data).reduce(
     (res, item) => ({
       ...res,
-      ...{ [item]: randomColor() },
+      ...{ [item]: colorsrange[i++ % colorsrange.length] },
     }),
     {}
   );
@@ -44,7 +42,7 @@ function labels(data: Object) {
   }, {});
 }
 
-class BarChartRace extends React.Component<BarChartRaceProps,BarChartRaceState> {
+export class BarChartRace extends React.Component<BarChartRaceProps,BarChartRaceState> {
   constructor(props: BarChartRaceProps) {
     super(props);
   }
@@ -93,5 +91,3 @@ class BarChartRace extends React.Component<BarChartRaceProps,BarChartRaceState> 
     );
   }
 }
-
-export default BarChartRace;
