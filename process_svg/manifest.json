@@ -1,0 +1,24 @@
+{
+  "name": "Process SVG",
+  "noData": true,
+  "parameters": [
+    {
+      "name": "containerId",
+      "type": "text",
+      "defaultValue": "",
+      "label": "Container ID"
+    },
+    {
+      "name": "processId",
+      "type": "text",
+      "defaultValue": "",
+      "label": "Process ID"
+    },
+    {
+      "name": "serverTemplate",
+      "type": "text",
+      "defaultValue": "",
+      "label": "Server Template ID"
+    }
+  ]
+}

@@ -1,0 +1,69 @@
+<html>
+  <body style="width: 600px; height: auto">
+    <p id="message"></p>
+
+    <div id="svgParent" style="width: 600px; height: 400px"></div>
+    <script type="text/javascript">
+      const SVG_FUNCTION_NAME = "ProcessSVGFunction";
+      const messageEL = document.getElementById("message");
+      const svgParent = document.getElementById("svgParent");
+      let id = "";
+      let containerId = "";
+      let processId = "";
+      let serverTemplate = "";
+      window.addEventListener("message", receiveMessage, false);
+
+      function receiveMessage(event) {
+        const message = event.data;
+        const type = message.type;
+
+        if (type === "INIT") {
+          id = message.properties.get("component_id");
+          console.log("INIT Received. Component ID: " + id);
+          containerId = message.properties.get("containerId");
+          processId = message.properties.get("processId");
+          serverTemplate = message.properties.get("serverTemplate");
+          callFunction();
+          return;
+        }
+
+        if (type === "FUNCTION_RESPONSE") {
+          const response = message.properties.get("functionResponse");
+
+          if (response.resultType === "ERROR") {
+            messageEL.style.display = "block";
+            svgParent.innerHTML = "";
+            messageEL.innerHTML = response.result;
+          } else if (response.request.functionName === SVG_FUNCTION_NAME) {
+            const svg = document.createElement("svg");
+            messageEL.style.display = "none";
+            svg.innerHTML = response.result;
+            svgParent.innerHTML = "";
+            document.getElementById("svgParent").appendChild(svg);
+          }
+        }
+
+        console.log(message);
+      }
+
+      function callFunction() {
+        const params = new Map();
+        const props = new Map();
+
+        params.set("containerId", containerId);
+        params.set("processId", processId);
+        params.set("serverTemplate", serverTemplate);
+
+        props.set("component_id", id);
+        props.set("functionCallRequest", {
+          functionName: SVG_FUNCTION_NAME,
+          parameters: params,
+        });
+        window.parent.postMessage({
+          type: "FUNCTION_CALL",
+          properties: props,
+        });
+      }
+    </script>
+  </body>
+</html>
