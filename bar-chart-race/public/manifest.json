@@ -1,0 +1,19 @@
+{
+  "name": "Bar Chart Race",
+  "icon": "fa fa-bell-o",
+  "parameters": [
+    {
+      "name": "title",
+      "type": "string",
+      "defaultValue": "Sample data",
+      "label": "Title"
+    },
+    {
+      "name": "titleenabled",
+      "type": "boolean",
+      "defaultValue": "false",
+      "label": "Disable Title"
+    }
+  ]
+}
+
