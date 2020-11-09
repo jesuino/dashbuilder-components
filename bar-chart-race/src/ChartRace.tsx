@@ -20,10 +20,28 @@ interface DataSet {
 const TITLE_ENABLED = true;
 const TITLE = "Sample Data";
 const TIMELINE= Array(20).fill(0).map((itm, idx) => String(idx + 1));
+const TIMELINETEXTALIGN="center";
+const TIMELINEFONTSIZE= "20px";
+const TIMELINETEXTCOLOR= "rgb(148, 148, 148)";
+const TIMELINEMARGINBOTTOM= "50px";
+const TEXTBOXFONTSIZE= "rgb(133, 131, 131)";
+const TEXTBOXTEXTCOLOR= "30px";
+const BARHEIGHT= "60px";
+const BARMARGINTOP= "10px";
+const BARBORDERRADIUS= "10px";
 
 interface State {
   titleenabled: boolean;
   title: string;
+  timelinetextalign: string;
+  timelinefontsize: string;
+  timelinetextcolor: string;
+  timelinemarginbottom: string;
+  textboxfontsize: string;
+  textboxtextcolor: string;
+  barheight: string;
+  barmargintop: string;
+  barborderradius: string;
   data: any;
   timeline: string[];
 }
@@ -37,6 +55,15 @@ export class ChartRace extends Component<any, State> {
     this.state = {
       titleenabled: TITLE_ENABLED,
       title: TITLE,
+      timelinetextalign: TIMELINETEXTALIGN,
+      timelinefontsize: TIMELINEFONTSIZE,
+      timelinetextcolor: TIMELINETEXTCOLOR,
+      timelinemarginbottom: TIMELINEMARGINBOTTOM,
+      textboxfontsize: TEXTBOXFONTSIZE,
+      textboxtextcolor: TEXTBOXTEXTCOLOR,
+      barheight: BARHEIGHT,
+      barmargintop: BARMARGINTOP,
+      barborderradius: BARBORDERRADIUS,
       data: DefaultData,
       timeline: TIMELINE
     };
@@ -45,6 +72,15 @@ export class ChartRace extends Component<any, State> {
       const params = event.data.properties as Map<string, object>;
       const titleenabled = (params.get("titleenabled") as any) === "false";
       const title = (params.get("title") as any) as string;
+      const timelinetextalign = (params.get("timelinetextalign") as any) as string;
+      const timelinefontsize = (params.get("timelinefontsize") as any) as string;
+      const timelinetextcolor = (params.get("timelinetextcolor") as any) as string;
+      const timelinemarginbottom = (params.get("timelinemarginbottom") as any) as string;
+      const textboxfontsize = (params.get("textboxfontsize") as any) as string;
+      const textboxtextcolor = (params.get("textboxtextcolor") as any) as string;
+      const barheight = (params.get("barheight") as any) as string;
+      const barmargintop = (params.get("barmargintop") as any) as string;
+      const barborderradius = (params.get("barborderradius") as any) as string;
       let data = DefaultData;
       const dataSet = params.get("dataSet") as DataSet;
       const timeline = dataSet.columns.slice(1).map((column) => column.name);
@@ -64,6 +100,15 @@ export class ChartRace extends Component<any, State> {
       this.setState({
         titleenabled: titleenabled,
         title: title || TITLE,
+        timelinetextalign: timelinetextalign || TIMELINETEXTALIGN,
+        timelinefontsize: timelinefontsize ? timelinefontsize +"px"  : TIMELINEFONTSIZE,
+        timelinetextcolor: timelinetextcolor ? "#" + timelinetextcolor : TIMELINETEXTCOLOR,
+        timelinemarginbottom: timelinemarginbottom ? timelinemarginbottom +"px" : TIMELINEMARGINBOTTOM,
+        textboxfontsize: textboxfontsize ? textboxfontsize +"px"  : TEXTBOXFONTSIZE,
+        textboxtextcolor: textboxtextcolor ? "#" + textboxtextcolor : TEXTBOXTEXTCOLOR,
+        barheight: barheight ? barheight +"px": BARHEIGHT,
+        barmargintop: barmargintop ? barmargintop +"px": BARMARGINTOP,
+        barborderradius: barborderradius ? barborderradius +"px": BARBORDERRADIUS,
         data: data,
         timeline: timeline,
       });
