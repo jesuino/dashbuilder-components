@@ -13,7 +13,7 @@ interface Column {
 
 interface DataSet {
   columns: Column[];
-  data: Map<string, Array<string>>;
+  data:  Map<string, Array<string>>;
 }
 
 // Default Values
@@ -67,7 +67,7 @@ export class ChartRace extends Component<any, State> {
       data: DefaultData,
       timeline: TIMELINE
     };
-
+    
     this.receiveEvent = (event: any) => {
       const params = event.data.properties as Map<string, object>;
       const titleenabled = (params.get("titleenabled") as any) === "false";
@@ -83,13 +83,19 @@ export class ChartRace extends Component<any, State> {
       const barborderradius = (params.get("barborderradius") as any) as string;
       let data = DefaultData;
       const dataSet = params.get("dataSet") as DataSet;
-      const timeline = dataSet.columns.slice(1).map((column) => column.name);
+      const keysarray = dataSet.columns.slice(1).map((column) => column.name);
+      var timeline: Array<string> =[];
+      for (var i = 0; i < Object.keys(dataSet.data).length; i++) {
+        timeline.push(Object.values(dataSet.data)[i][0]);
+      } 
+      Object.values(dataSet.data).forEach(array => array.shift());
+      console.log(dataSet.data);
       if (dataSet!==null) {
         var objectvalues: { [key: string]: Array<number> } = {};
-        for (var j = 0; j < Object.keys(dataSet.data).length; j++) {
-          var keyObj = String(Object.values(dataSet.data)[j][0]);
+        for (var i = 0; i < Object.keys(dataSet.data).length; i++) {
+          var keyObj = keysarray[i];
           var valuesarray: Array<number> = [];
-          for (var i = 1; i < Object.values(dataSet.data)[j].length; i++) {
+          for (var j = 0; j < Object.values(dataSet.data).length; j++) {
             let values = Number(Object.values(dataSet.data)[j][i]);
             valuesarray.push(values);
           }
@@ -98,7 +104,7 @@ export class ChartRace extends Component<any, State> {
         data = objectvalues;
       }
       this.setState({
-        titleenabled: titleenabled,
+        titleenabled: titleenabled || TITLE_ENABLED,
         title: title || TITLE,
         timelinetextalign: timelinetextalign || TIMELINETEXTALIGN,
         timelinefontsize: timelinefontsize ? timelinefontsize +"px"  : TIMELINEFONTSIZE,
@@ -110,7 +116,7 @@ export class ChartRace extends Component<any, State> {
         barmargintop: barmargintop ? barmargintop +"px": BARMARGINTOP,
         barborderradius: barborderradius ? barborderradius +"px": BARBORDERRADIUS,
         data: data,
-        timeline: timeline,
+        timeline: timeline || TIMELINE,
       });
     };
   }

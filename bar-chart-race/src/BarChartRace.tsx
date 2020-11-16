@@ -65,9 +65,6 @@ export class BarChartRace extends React.Component<
   BarChartRaceProps,
   BarChartRaceState
 > {
-  constructor(props: BarChartRaceProps) {
-    super(props);
-  }
   renderTitle() {
     if (this.props.titleenabled === true) {
       return <h2 style={{ textAlign: "center" }}>{this.props.title}</h2>;
