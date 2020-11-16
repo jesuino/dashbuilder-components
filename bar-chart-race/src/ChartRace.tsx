@@ -13,7 +13,7 @@ interface Column {
 
 interface DataSet {
   columns: Column[];
-  data:  Map<string, Array<string>>;
+  data: Map<string, Array<string>>;
 }
 
 // Default Values
@@ -88,12 +88,11 @@ export class ChartRace extends Component<any, State> {
       for (var i = 0; i < Object.keys(dataSet.data).length; i++) {
         timeline.push(Object.values(dataSet.data)[i][0]);
       } 
-      Object.values(dataSet.data).forEach(array => array.shift());
-      console.log(dataSet.data);
+      dataSet.data.forEach(array => array.shift());
       if (dataSet!==null) {
         var objectvalues: { [key: string]: Array<number> } = {};
         for (var i = 0; i < Object.keys(dataSet.data).length; i++) {
-          var keyObj = keysarray[i];
+          var keyObj: string = keysarray[i];
           var valuesarray: Array<number> = [];
           for (var j = 0; j < Object.values(dataSet.data).length; j++) {
             let values = Number(Object.values(dataSet.data)[j][i]);
@@ -103,6 +102,7 @@ export class ChartRace extends Component<any, State> {
         }
         data = objectvalues;
       }
+      data = JSON.parse(JSON.stringify(data));
       this.setState({
         titleenabled: titleenabled || TITLE_ENABLED,
         title: title || TITLE,
