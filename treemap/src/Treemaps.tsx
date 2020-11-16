@@ -42,4 +42,3 @@ export class Treemaps extends PureComponent<TreemapProps,TreemapState> {
   }
 }
 
-// export default Treemaps;
