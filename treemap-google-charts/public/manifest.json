@@ -1,4 +1,167 @@
 {
   "name": "treemap-google-charts",
-  "icon": "fa fa-bell-o"
+  "icon": "fa fa-bell-o",
+  "parameters": [
+    {
+      "name": "title",
+      "type": "string",
+      "defaultValue": "Sample Data",
+      "label": "Title",
+      "category": "Title Options"
+    },
+    {
+      "name": "titletextcolor",
+      "type": "color",
+      "defaultValue": "black",
+      "label": "Title Text color",
+      "category": "Title Options"
+    },
+    {
+      "name": "titlefontname",
+      "type": "string",
+      "defaultValue": "Times New Roman",
+      "label": "Title Font Name",
+      "category": "Title Options"
+    },
+    {
+      "name": "titlefontsize",
+      "type": "natural_number",
+      "defaultValue": 10,
+      "label": "Title Font Size",
+      "category": "Title Options"
+    },
+    {
+      "name": "titlebold",
+      "type": "boolean",
+      "defaultValue": true,
+      "label": "Title bold",
+      "category": "Title Options"
+    },
+    {
+      "name": "titleitalic",
+      "type": "boolean",
+      "defaultValue": true,
+      "label": "Title italic",
+      "category": "Options"
+    },
+    {
+      "name": "maxdepth",
+      "type": "natural_number",
+      "defaultValue": 1,
+      "label": "Max Depth",
+      "category": "Options"
+    },
+    {
+      "name": "maxpostdepth",
+      "type": "natural_number",
+      "defaultValue": 2,
+      "label": "Max Post Depth",
+      "category": "Options"
+    },
+    {
+      "name": "minhighlightcolor",
+      "type": "color",
+      "defaultValue": "8c6bb1",
+      "label": "Min Highlight Color",
+      "category": "Options"
+    },
+    {
+      "name": "midhighlightcolor",
+      "type": "color",
+      "defaultValue": "9ebcda",
+      "label": "Mid Highlight Color",
+      "category": "Options"
+    },
+    {
+      "name": "maxhighlightcolor",
+      "type": "color",
+      "defaultValue": "edf8fb",
+      "label": "Max Highlight Color",
+      "category": "Options"
+    },
+    {
+      "name": "mincolor",
+      "type": "color",
+      "defaultValue": "009688",
+      "label": "Min Color",
+      "category": "Options"
+    },
+    {
+      "name": "midcolor",
+      "type": "color",
+      "defaultValue": "f7f7f7",
+      "label": "Mid Color",
+      "category": "Options"
+    },
+    {
+      "name": "maxcolor",
+      "type": "color",
+      "defaultValue": "ee8100",
+      "label": "Max Color",
+      "category": "Options"
+    },
+    {
+      "name": "textcolor",
+      "type": "color",
+      "defaultValue": "black",
+      "label": "Text color",
+      "category": "Text Style"
+    },
+    {
+      "name": "fontname",
+      "type": "string",
+      "defaultValue": "Times New Roman",
+      "label": "Font Name",
+      "category": "Text Style"
+    },
+    {
+      "name": "fontsize",
+      "type": "natural_number",
+      "defaultValue": 10,
+      "label": "Font Size",
+      "category": "Text Style"
+    },
+    {
+      "name": "bold",
+      "type": "boolean",
+      "defaultValue": true,
+      "label": "Bold",
+      "category": "Text Style"
+    },
+    {
+      "name": "italic",
+      "type": "boolean",
+      "defaultValue": true,
+      "label": "Italic",
+      "category": "Text Style"
+    },
+    {
+      "name": "headerheight",
+      "type": "natural_height",
+      "defaultValue": 15,
+      "label": "Header Height",
+      "category": "Options"
+    },
+    {
+      "name": "showscale",
+      "type": "boolean",
+      "defaultValue": true,
+      "label": "Show Scale",
+      "category": "Options"
+    },
+    {
+      "name": "useweightedaverageforaggregation",
+      "type": "boolean",
+      "defaultValue": true,
+      "label": "Use Weighted Average for Aggregation",
+      "category": "Options"
+    },
+    {
+      "name": "showtooltips",
+      "type": "boolean",
+      "defaultValue": true,
+      "label": "Show Tooltips",
+      "category": "Options"
+    }
+  ]
 }

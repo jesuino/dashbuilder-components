@@ -1,12 +1,12 @@
 import React from 'react';
 import './App.css';
-import  {Treemap} from './Treemap';
+import  {Chart} from './Chart';
 
 function App() {
 
   return (
     <div className="App">
-      <Treemap />
+      <Chart />
     </div>
   );
 }
