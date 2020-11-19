@@ -11,7 +11,7 @@ interface Column {
 
 interface DataSet {
   columns: Column[];
-  data: Map<string, Array<string>>;
+  data: Array<Array<string | number>>;
 }
 
 // Default Values
@@ -101,6 +101,17 @@ export class Chart extends Component<any, State> {
 
     this.receiveEvent = (event: any) => {
       const params = event.data.properties as Map<string, object>;
+      const dataSet = params.get("dataSet") as DataSet;
+      var headerrow= dataSet.columns.map(column => column.name);
+      for (var i = 0; i < dataSet.data.length; i++) {  
+        for (var j=0; j< dataSet.data.length; j++){
+            dataSet.data[i][2] = Number(dataSet.data[i][2]);
+            if(dataSet.data[i][j]==="null"){
+                dataSet.data[i][j] = JSON.parse(String(dataSet.data[i][j]));
+         }
+        }
+      }
+      dataSet.data.unshift(headerrow);
       const title = (params.get("title") as any) as string;
       const titletextcolor = (params.get("titletextcolor") as any) as string;
       const titlefontname = (params.get("titlefontname") as any) as string;
@@ -134,7 +145,7 @@ export class Chart extends Component<any, State> {
       const showTooltips = (params.get("showtooltips") as any) as boolean;
 
       this.setState({
-        data: data,
+        data: dataSet.data || data,
         title: title || TITLE,
         titletextcolor: titletextcolor ? "#" + titletextcolor : TITLETEXTCOLOR,
         titlefontname: titlefontname || TITLEFONTNAME,
