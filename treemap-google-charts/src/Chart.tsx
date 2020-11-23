@@ -39,6 +39,25 @@ const SHOWSCALE = true;
 const USEWEIGHTEDAVERAGEFORAGGREGATION = true;
 const SHOWTOOLTIPS = true;
 
+// constants
+const INVALID_DATASET_MESSAGE =
+  "Provided dataset is not valid. Please check Treemap Google Charts Component instructions for more details. Showing sample data.";
+
+function validateDataset(dataSet: DataSet): boolean {
+  if (dataSet) {
+    const cols = dataSet.columns;
+    if (cols.length === 3) {
+      return (
+        (cols[0].type === "TEXT" || cols[0].type === "LABEL") &&
+        (cols[1].type === "TEXT" || cols[1].type ==="LABEL") &&
+        (cols[2].type === "NUMBER")
+      );
+    }
+  }
+
+  return false;
+}
+
 interface State {
   data?: any;
   title?: string;
@@ -64,6 +83,7 @@ interface State {
   showScale?: boolean;
   useWeightedAverageForAggregation?: boolean;
   showTooltips?: boolean;
+  invalidDataSet?: boolean;
 }
 
 export class Chart extends Component<any, State> {
@@ -97,12 +117,15 @@ export class Chart extends Component<any, State> {
       showScale: SHOWSCALE,
       useWeightedAverageForAggregation: USEWEIGHTEDAVERAGEFORAGGREGATION,
       showTooltips: SHOWTOOLTIPS,
+      invalidDataSet: false,
     };
 
     this.receiveEvent = (event: any) => {
       const params = event.data.properties as Map<string, object>;
       const dataSet = params.get("dataSet") as DataSet;
+      let isValid = validateDataset(dataSet);
       var headerrow= dataSet.columns.map(column => column.name);
+      if(isValid){
       for (var i = 0; i < dataSet.data.length; i++) {  
         for (var j=0; j< dataSet.data.length; j++){
             dataSet.data[i][2] = Number(dataSet.data[i][2]);
@@ -112,6 +135,7 @@ export class Chart extends Component<any, State> {
         }
       }
       dataSet.data.unshift(headerrow);
+    }
       const title = (params.get("title") as any) as string;
       const titletextcolor = (params.get("titletextcolor") as any) as string;
       const titlefontname = (params.get("titlefontname") as any) as string;
@@ -176,6 +200,7 @@ export class Chart extends Component<any, State> {
         useWeightedAverageForAggregation:
           useWeightedAverageForAggregation || USEWEIGHTEDAVERAGEFORAGGREGATION,
         showTooltips: showTooltips || SHOWTOOLTIPS,
+        invalidDataSet: !isValid,
       });
     };
   }
@@ -189,6 +214,13 @@ export class Chart extends Component<any, State> {
   render() {
     return (
       <div style={{ width: "auto", height: "auto" }}>
+          {this.state.invalidDataSet ? (
+          <div>
+            <em>
+              <strong>{INVALID_DATASET_MESSAGE}</strong>
+            </em>
+          </div>
+        ) : null}
         <Treemap {...this.state} />
       </div>
     );
