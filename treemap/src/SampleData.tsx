@@ -1,4 +1,4 @@
-export const data = [
+export const SampleData = [
 	{
 		name: 'axis',
 		children: [

@@ -18,9 +18,6 @@ export interface TreemapProps {
 export interface TreemapState {}
 
 export class Treemaps extends PureComponent<TreemapProps,TreemapState> {
-  constructor(props: TreemapProps) {
-    super(props);
-  }
   render() {
     return (
       <div className="App">
