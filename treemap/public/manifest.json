@@ -55,7 +55,7 @@
     {
       "name": "animationduration",
       "type": "natural_number",
-      "defaultValue": "1500",
+      "defaultValue": "100",
       "label": "Animation Duration",
       "category": "Animation"
     },

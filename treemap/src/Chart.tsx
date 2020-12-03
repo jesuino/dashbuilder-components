@@ -24,7 +24,7 @@ const RATIO = 4 / 3;
 const STROKE = "#fff";
 const FILL = "#8884d8";
 const ANIMATIONBEGIN = 0;
-const ANIMATIONDURATION = 1500;
+const ANIMATIONDURATION = 100;
 const ANIMATIONEASING = "linear";
 // constants
 const INVALID_DATASET_MESSAGE =
@@ -122,10 +122,11 @@ export class Chart extends Component<any, State> {
           }
         }
       }
+      data=newdata;
       this.setState({
         width: width || WIDTH,
         height: height || HEIGHT,
-        data: newdata,
+        data: data,
         dataKey: datakey || DATAKEY,
         type: type || TYPE,
         ratio: ratio || RATIO,
