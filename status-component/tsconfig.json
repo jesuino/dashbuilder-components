@@ -6,8 +6,7 @@
     "module": "esnext",
     "target": "es5",
     "lib": [
-      "es6",
-      "dom"
+      "es6", "dom", "es2018.promise"
     ],
     "sourceMap": true,
     "jsx": "react",
@@ -24,7 +23,11 @@
     "skipLibCheck": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true
+    "noEmit": true,
+    "declaration": true,
+    "strictNullChecks": true,
+    "experimentalDecorators": true,
+    "downlevelIteration": true,
   },
   "include": [
     "**/*.ts",
