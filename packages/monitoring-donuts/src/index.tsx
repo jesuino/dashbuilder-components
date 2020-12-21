@@ -5,4 +5,4 @@ import  {ComponentApi} from "@dashbuilder-js/component-api";
 
 const api = new ComponentApi();
 
-ReactDOM.render(<ChartContainer controller={api.getComponentController()} />, document.getElementById("root")!);
+ReactDOM.render(<ChartContainer controller={api.getComponentController()} />, document.getElementById("app")!);
