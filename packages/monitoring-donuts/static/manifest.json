@@ -1,0 +1,13 @@
+{
+  "name": "Monitoring Donuts",
+  "icon": "fa fa-tachometer",
+  "parameters": [
+    {
+      "name": "Title",
+      "type": "text",
+      "defaultValue": "Processes",
+      "label": "Title",
+      "category": "RowChart"
+    }
+  ]
+}
