@@ -1,6 +1,5 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
-// import { ChartRow, ChartProps } from "./ChartRow";
 import { ComponentController } from "@dashbuilder-js/component-api/dist/controller/ComponentController";
 import {
   Page,
@@ -13,6 +12,7 @@ import {
   CardBody,
 } from "@patternfly/react-core";
 import { ChartDonut } from "@patternfly/react-charts";
+import "@patternfly/react-core/dist/styles/base.css"
 
 const DEFAULT_TITLE = "Processes";
 const TITLE_PROP = "Title";
