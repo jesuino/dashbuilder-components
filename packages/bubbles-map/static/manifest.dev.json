@@ -1,0 +1,40 @@
+{
+  "init": [
+    {
+      "key": "title",
+      "value": "Bubble map of populous cities"
+    },
+    {
+      "key": "latitude",
+      "value": 28.7041
+    },
+    {
+      "key": "longitude",
+      "value": 77.1025
+    },
+    {
+      "key": "titleenabled",
+      "value": false
+    },
+    {
+      "key": "zoom",
+      "value": 1
+    },
+    {
+      "key": "bubblecolor",
+      "value": "black"
+    },
+    {
+      "key": "maxRadius",
+      "value": 20
+    },
+    {
+      "key": "minRadius",
+      "value": 2
+    },
+    {
+      "key": "resizeBubbles",
+      "value": true
+    }
+  ]
+}
