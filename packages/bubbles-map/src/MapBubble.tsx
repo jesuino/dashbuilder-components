@@ -6,20 +6,7 @@ import { DefaultData } from "./SampleData";
 import { ComponentController, DataSet } from "@dashbuilder-js/component-api";
 import { useState, useEffect } from "react";
 
-type ColumnType = "TEXT" | "LABEL" | "DATE" | "NUMBER";
-
-interface Column {
-  name: string;
-  type: ColumnType;
-}
-
-// interface DataSet {
-//   columns: Column[];
-//   data: string[][];
-// }
-
 // Default Values
-const DEFAULT_CENTER = [28.7041, 77.1025];
 const DEFAULT_TITLE_ENABLED = true;
 const DEFAULT_TITLE = "Most Populous Cities in Asia";
 const DEFAULT_ZOOM = 1;
@@ -67,20 +54,6 @@ function validateDataset(dataSet: DataSet): boolean {
   }
 
   return false;
-}
-
-interface State {
-  latitude: number;
-  longitude: number;
-  titleenabled: boolean;
-  title: string;
-  zoom: number;
-  bubblecolor: string;
-  maxRadius: number;
-  minRadius: number;
-  data: Data[];
-  invalidDataSet: boolean;
-  resizeBubbles: boolean;
 }
 
 interface Props {
