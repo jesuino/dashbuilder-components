@@ -3,7 +3,7 @@ import { LatLong, LatLongProps } from "./LatLong";
 import "leaflet/dist/leaflet.css";
 import { Data } from "./Data";
 import { DefaultData } from "./SampleData";
-import { ComponentController, DataSet, ColumnType, FunctionCallRequest } from "@dashbuilder-js/component-api";
+import { ComponentController, DataSet, ColumnType } from "@dashbuilder-js/component-api";
 import { useState, useEffect, useCallback } from "react";
 
 // Default Values
@@ -58,7 +58,7 @@ interface AppState {
   message?: string;
 }
 
-const isEmpty = (param?: string ) =>{ console.log(param); return param === undefined || param?.trim() === ""};
+const isEmpty = (param?: string ) =>{ return param === undefined || param?.trim() === ""};
 
 const validateParams = (params: Map<string, any>): any => {
    if (isEmpty(params.get(Params.TITLE))) {
@@ -169,25 +169,6 @@ export function MapBubble(props: Props) {
       }));
     }
   }, []);
-  useEffect(() => {
-    props.controller.setOnInit(componentProps => {
-      setMapProps({
-        title: (componentProps.get(TITLE_PROP) as string) || DEFAULT_TITLE,
-        latitude: +componentProps.get(LATITUDE_PROP) || DEFAULT_LATITUDE,
-        longitude: +componentProps.get(LONGITUDE_PROP) || DEFAULT_LONGITUDE,
-        titleenabled: (componentProps.get(TITLE_ENABLED_PROP) as boolean) || DEFAULT_TITLE_ENABLED,
-        zoom: +componentProps.get(ZOOM_PROP) || DEFAULT_ZOOM,
-        bubblecolor: (componentProps.get(BUBBLECOLOR_PROP) as string) || DEFAULT_COLOR,
-        maxRadius: +componentProps.get(MAXRADIUS_PROP) || DEFAULT_MAX_RADIUS,
-        minRadius: +componentProps.get(MINRADIUS_PROP) || DEFAULT_MIN_RADIUS,
-        resizeBubbles: (componentProps.get(RESIZEBUBBLES_PROP) as boolean) || DEFAULT_RESIZE_BUBBLES,
-        data: appState.processesNodesValues
-      });
-    });
-    // props.controller.setOnDataSet((_dataset: DataSet) => {
-    //   setDataset(_dataset);
-    // });
-  }, [props.controller]);
 
   useEffect(() => {
     props.controller.setOnInit(onInit);
