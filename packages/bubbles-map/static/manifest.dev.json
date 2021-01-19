@@ -1,0 +1,68 @@
+{
+  "init": [
+    {
+      "key": "title",
+      "value": "Bubble map of populous cities"
+    },
+    {
+      "key": "latitude",
+      "value": 28.7041
+    },
+    {
+      "key": "longitude",
+      "value": 77.1025
+    },
+    {
+      "key": "titleenabled",
+      "value": false
+    },
+    {
+      "key": "zoom",
+      "value": 1
+    },
+    {
+      "key": "bubblecolor",
+      "value": "black"
+    },
+    {
+      "key": "maxRadius",
+      "value": 20
+    },
+    {
+      "key": "minRadius",
+      "value": 2
+    },
+    {
+      "key": "resizeBubbles",
+      "value": true
+    }
+  ],
+  "dataSet": {
+    "columns": [
+      {
+        "name": "Name",
+        "type": "LABEL"
+      },
+      {
+        "name": "Longitude",
+        "type": "NUMBER"
+      },
+      {
+        "name": "Latitude",
+        "type": "NUMBER"
+      },
+      {
+        "name": "Value",
+        "type": "NUMBER"
+      }
+    ],
+    "data": [
+      ["Tokyo", "139.6917", "35.6895", "37843000"],
+      ["Mumbai", "72.8777", "19.076", "17712000"],
+      ["Moscow", "37.6173", "55.7558", "16170000"],
+      ["Karachi", "67.0099", "24.8615", "22123000"],
+      ["Seoul", "126.978", "37.5665", "23480000"],
+      ["Shanghai", "121.4737", "31.2304", "23416000"]
+    ]
+  }
+}
