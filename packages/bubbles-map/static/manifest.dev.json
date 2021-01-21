@@ -2,7 +2,7 @@
   "init": [
     {
       "key": "title",
-      "value": "Bubble map of populous cities"
+      "value": "Bubble map of populous cities in Asia"
     },
     {
       "key": "latitude",
@@ -14,11 +14,11 @@
     },
     {
       "key": "titleenabled",
-      "value": false
+      "value": "false"
     },
     {
       "key": "zoom",
-      "value": 1
+      "value": 2
     },
     {
       "key": "bubblecolor",
@@ -34,7 +34,7 @@
     },
     {
       "key": "resizeBubbles",
-      "value": true
+      "value": "true"
     }
   ],
   "dataSet": {

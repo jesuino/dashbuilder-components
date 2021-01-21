@@ -64,28 +64,28 @@ const validateParams = (params: Map<string, any>): any => {
    if (isEmpty(params.get(Params.TITLE))) {
     return "Title is required.";
   }
-  if (params.get(Params.LATITUDE)=== null) {
+  if (!params.get(Params.LATITUDE)) {
     return "Latitude is required.";
   }
-  if (params.get(Params.LONGITUDE)=== null) {
+  if (!params.get(Params.LONGITUDE)) {
     return "Longitude is required.";
   }
-  if (params.get(Params.TITLE_ENABLED)===null) {
+  if (!params.get(Params.TITLE_ENABLED)) {
     return "Title Enabled is required.";
   }
-  if (params.get(Params.ZOOM)===null) {
+  if (!params.get(Params.ZOOM)) {
     return "Zoom is required.";
   }
   if (isEmpty(params.get(Params.BUBBLECOLOR))) {
     return "Bubble color is required.";
   }
-  if (params.get(Params.MAXRADIUS)===null) {
+  if (!params.get(Params.MAXRADIUS)) {
     return "Max Radius is required.";
   }
-  if (params.get(Params.MINRADIUS)===null) {
+  if (!params.get(Params.MINRADIUS)) {
     return "Min Radius is required.";
   }
-  if (params.get(Params.RESIZEBUBBLES)=== null) {
+  if (!params.get(Params.RESIZEBUBBLES)) {
     return "Resize Bubbles is required.";
   }
 };
@@ -172,6 +172,20 @@ export function MapBubble(props: Props) {
 
   useEffect(() => {
     props.controller.setOnInit(onInit);
+    props.controller.setOnInit(componentProps => {
+      setMapProps({
+        title: (componentProps.get(TITLE_PROP) as string) || DEFAULT_TITLE,
+        latitude: +componentProps.get(LATITUDE_PROP) || DEFAULT_LATITUDE,
+        longitude: +componentProps.get(LONGITUDE_PROP) || DEFAULT_LONGITUDE,
+        titleenabled: (componentProps.get(TITLE_ENABLED_PROP) as boolean) || DEFAULT_TITLE_ENABLED,
+        zoom: +componentProps.get(ZOOM_PROP) || DEFAULT_ZOOM,
+        bubblecolor: (componentProps.get(BUBBLECOLOR_PROP) as string) || DEFAULT_COLOR,
+        maxRadius: +componentProps.get(MAXRADIUS_PROP) || DEFAULT_MAX_RADIUS,
+        minRadius: +componentProps.get(MINRADIUS_PROP) || DEFAULT_MIN_RADIUS,
+        resizeBubbles: (componentProps.get(RESIZEBUBBLES_PROP) as boolean) || DEFAULT_RESIZE_BUBBLES,
+        data: appState.processesNodesValues
+      });
+    });
     props.controller.setOnDataSet(onDataset);
   }, [appState]);
 
@@ -191,7 +205,7 @@ export function MapBubble(props: Props) {
             return <em style={{ color: "red" }}>{appState.message}</em>;
           case AppStateType.LOADED_COMPONENT:
           case AppStateType.FINISHED:
-            return <LatLong {...mapProps} />;
+            return <LatLong {...mapProps} data={appState.processesNodesValues}/>;
           default:
             return <em>Status: {appState.state}</em>;
         }
