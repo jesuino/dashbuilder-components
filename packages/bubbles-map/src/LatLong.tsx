@@ -2,6 +2,7 @@ import * as React from "react";
 import { Data } from "./Data";
 import { Map, CircleMarker, TileLayer, Tooltip, Viewport } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
+import { useCallback } from "react";
 
 export interface LatLongProps {
   latitude: number;
@@ -25,33 +26,31 @@ function map_range(value:number, low1:number, high1:number, low2:number, high2:n
 }
 
 export function LatLong(props:LatLongProps) {
-
   const [currentZoom, setcurrentZoom]=React.useState<number>(props.zoom)
-  function renderTitle() {
+  const renderTitle = useCallback(() => {
     if (props.titleenabled === true) {
       return <h3 style={{ textAlign: "center" }}>{props.title}</h3>;
     } else {
       return null;
     }
-  }
+  }, [props.title]);
 
-  function onViewPortChanged(viewPort: Viewport) {
+  const onViewPortChanged = useCallback((viewPort: Viewport) => {
     console.debug(viewPort);
     if (props.resizeBubbles) {
       setcurrentZoom(
         viewPort.zoom || props.zoom,
       );
     }
-  }
+  }, [props.zoom]);
 
-  function zoomFactor(): number {
+   const zoomFactor = useCallback(() => {
     const userZoom = props.zoom;
     if (currentZoom > userZoom) {
       return currentZoom / userZoom;
     }
     return 1;
-  }
-
+  }, [props.zoom]);
     const allValues: number[] = props.data.map((d) => d.value);
     const maxValue =
       allValues.length > 1 ? Math.max.apply(Math, allValues) : allValues[0];
