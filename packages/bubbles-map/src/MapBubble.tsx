@@ -130,26 +130,6 @@ export function MapBubble(props: Props) {
     processesNodesValues: [],
     configurationIssue: ""
   });
-  const onInit = useCallback(
-    (params: Map<string, string>) => {
-      const validationMessage = validateParams(params);
-      if (validationMessage) {
-        setAppState(previousAppState => ({
-          ...previousAppState,
-          state: AppStateType.ERROR,
-          message: validationMessage,
-          configurationIssue: validationMessage
-        }));
-      } else {
-        setAppState(previousAppState => ({
-          ...previousAppState,
-          state: AppStateType.LOADING_COMPONENT,
-          configurationIssue: ""
-        }));
-      }
-    },
-    [appState]
-  );
 
   const onDataset = useCallback((ds: DataSet, params: Map<string, any>) => {
     const validationMessage = validateParams(params) || validateDataSet(ds);
@@ -171,7 +151,6 @@ export function MapBubble(props: Props) {
   }, []);
 
   useEffect(() => {
-    props.controller.setOnInit(onInit);
     props.controller.setOnInit(componentProps => {
       setMapProps({
         title: (componentProps.get(TITLE_PROP) as string) || DEFAULT_TITLE,
