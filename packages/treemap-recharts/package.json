@@ -1,0 +1,59 @@
+{
+  "name": "@dashbuilder-component/treemap-recharts",
+  "version": "0.1.0",
+  "description": "",
+  "license": "Apache-2.0",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "@dashbuilder-js/component-api": "^0.2.0",
+    "react-d3-treemap": "^1.0.15",
+    "react-dom": "^16.13.1",
+    "react-scripts": "^3.4.3",
+    "recharts": "^1.8.5",
+    "webpack-dev-server": "^3.11.0",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2",
+    "@types/jest": "^24.0.0",
+    "@types/node": "^12.0.0"
+  },
+  "scripts": {
+    "lint": "tslint -c ../../tslint.json 'src/**/*.{ts,tsx,js,jsx}'",
+    "test": "jest --silent --verbose --passWithNoTests",
+    "test:clearCache": "jest --clearCache",
+    "build:fast": "rm -rf dist && webpack",
+    "build": "yarn run lint && yarn test && yarn run build:fast",
+    "build:prod": "yarn run build --mode production --devtool none",
+    "start": "webpack-dev-server -d --host 0.0.0.0 --env WEBPACK_DEV_SERVER=true"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@dashbuilder-js/component-dev": "^0.2.0",
+    "@types/history": "^4.7.3",
+    "@types/react": "^16.9.46",
+    "@types/react-dom": "^16.9.8",
+    "@types/react-router-dom": "^5.1.5",
+    "@types/recharts": "^1.8.18",
+    "css-loader": "^5.0.1",
+    "style-loader": "^2.0.0",
+    "typescript": "^4.1.2"
+  }
+}

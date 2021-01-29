@@ -1,0 +1,71 @@
+{
+  "name": "treemap",
+  "icon": "fa fa-bell-o",
+  "parameters": [
+    {
+      "name": "width",
+      "type": "natural_number",
+      "defaultValue": "400",
+      "label": "Width"
+    },
+    {
+      "name": "height",
+      "type": "natural_number",
+      "defaultValue": "200",
+      "label": "Height"
+    },
+    {
+      "name": "datakey",
+      "type": "string",
+      "defaultValue": "size",
+      "label": "Datakey"
+    },
+    {
+      "name": "type",
+      "type": "combo",
+      "defaultValue": "nest",
+      "comboValues": ["flat", "nest"],
+      "label": "Type"
+    },
+    {
+      "name": "ratio",
+      "type": "number",
+      "defaultValue": "4/3",
+      "label": "Ratio"
+    },
+    {
+      "name": "stroke",
+      "type": "color",
+      "defaultValue": "fff",
+      "label": "Stroke color"
+    },
+    {
+      "name": "fill",
+      "type": "color",
+      "defaultValue": "8884d8",
+      "label": "Fill color"
+    },
+    {
+      "name": "animationbegin",
+      "type": "natural_number",
+      "defaultValue": "0",
+      "label": "Animation Begin",
+      "category": "Animation"
+    },
+    {
+      "name": "animationduration",
+      "type": "natural_number",
+      "defaultValue": "100",
+      "label": "Animation Duration",
+      "category": "Animation"
+    },
+    {
+      "name": "animationeasing",
+      "type": "combo",
+      "defaultValue": "linear",
+      "comboValues": ["ease", "ease-in", "ease-out", "ease-in-out", "linear"],
+      "label": "Animation Easing",
+      "category": "Animation"
+    }
+  ]
+}
