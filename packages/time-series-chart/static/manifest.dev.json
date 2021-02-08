@@ -1,0 +1,32 @@
+{
+  "init": [
+    {
+      "key": "width",
+      "value": 800
+    },
+    {
+      "key": "height",
+      "value": 300
+    }
+  ],
+  "dataSet": {
+    "columns": [
+      {
+        "name": "category",
+        "type": "TEXT"
+      },
+      {
+        "name": "series-1",
+        "type": "NUMBER"
+      }
+    ],
+    "data": [
+      [2000, 0],
+      [2001, 15],
+      [2002, 20],
+      [2003, 65],
+      [2004, 20],
+      [2005, 80]
+    ]
+  }
+}
