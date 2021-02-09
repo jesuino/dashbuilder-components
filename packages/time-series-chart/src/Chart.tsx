@@ -1,6 +1,6 @@
 import * as React from "react";
-import { LineChart, ChartProps} from "./LineChart";
-import {options} from "./SampleData";
+import { LineChart, ChartProps } from "./LineChart";
+import { options, series } from "./SampleData";
 import { ComponentController, DataSet, ColumnType } from "@dashbuilder-js/component-api";
 import { useState, useEffect, useCallback } from "react";
 import { typeoptions, typeseries } from "./Data";
@@ -9,9 +9,9 @@ import { typeoptions, typeseries } from "./Data";
 const DEFAULT_WIDTH = 400;
 const DEFAULT_HEIGHT = 200;
 const NOT_ENOUGH_COLUMNS_MSG =
-  "Time series component expects 2 columns: ID(LABEL or TEXT), Parent(LABEL or TEXT), and Value (NUMBER).";
-const FIRST_COLUMN_INVALID_MSG = "Wrong type for first column, it should be either LABEL or TEXT.";
-const SECOND_COLUMN_INVALID_MSG = "Wrong type for second column, it should be either LABEL or TEXT.";
+  "Time series component expects 2 columns: category(LABEL or TEXT or NUMBER) and series(NUMBER).";
+const FIRST_COLUMN_INVALID_MSG = "Wrong type for first column, it should be either LABEL or TEXT or NUMBER.";
+const SECOND_COLUMN_INVALID_MSG = "Wrong type for second column, it should be NUMBER.";
 
 enum Params {
   WIDTH = "width",
@@ -47,7 +47,11 @@ const validateDataSet = (ds: DataSet): string | undefined => {
   if (ds.columns.length < 2) {
     return NOT_ENOUGH_COLUMNS_MSG;
   }
-  if (ds.columns[0].type !== ColumnType.LABEL && ds.columns[0].type !== ColumnType.TEXT && ds.columns[0].type !== ColumnType. NUMBER) {
+  if (
+    ds.columns[0].type !== ColumnType.LABEL &&
+    ds.columns[0].type !== ColumnType.TEXT &&
+    ds.columns[0].type !== ColumnType.NUMBER
+  ) {
     return FIRST_COLUMN_INVALID_MSG;
   }
   if (ds.columns[1].type !== ColumnType.NUMBER) {
@@ -59,29 +63,32 @@ interface Props {
   controller: ComponentController;
 }
 
-function getseries(dataset: any): any{
-  var newseries: typeseries={name:dataset.columns[1].name, data:dataset.data.map((d: any) => d[1])};
+function getseries(dataset: any): any {
+  var newseries: typeseries = { name: dataset.columns[1].name, data: dataset.data.map((d: any) => d[1]) };
   console.log(dataset.columns[1].name);
   console.log(newseries);
-  return newseries
+  return newseries;
 }
 
-function getData(dataset: any): any {
-  var newoptions: typeoptions={chart:{id:dataset.columns[0].name}, xaxis:{categories:dataset.data.map((d: any) => d[1])}}
-  return newoptions
+function getoptions(dataset: any): any {
+  var newoptions: typeoptions = {
+    chart: { id: dataset.columns[0].name },
+    xaxis: { categories: dataset.data.map((d: any) => d[1]) }
+  };
+  return newoptions;
 }
 
-export function Chart(props:Props) {
+export function Chart(props: Props) {
   const [chartProps, setChartProps] = useState<ChartProps>({
     width: DEFAULT_WIDTH,
     height: DEFAULT_HEIGHT,
     options: options,
-    series: {name: 'series-1', data: [10, 20, 40, 30]}
+    series: series
   });
   const [appState, setAppState] = useState<AppState>({
     state: AppStateType.INIT,
-    processesoptions: {chart: {id:""}, xaxis:{categories:[]}},
-    processesseries: {name:"",data:[]},
+    processesoptions: { chart: { id: "" }, xaxis: { categories: [] } },
+    processesseries: { name: "", data: [] },
     configurationIssue: ""
   });
   const onDataset = useCallback((ds: DataSet, params: Map<string, any>) => {
@@ -96,7 +103,7 @@ export function Chart(props:Props) {
     } else {
       setAppState(previousAppState => ({
         ...previousAppState,
-        processesoptions: getData(ds),
+        processesoptions: getoptions(ds),
         processesseries: getseries(ds),
         state: AppStateType.FINISHED,
         configurationIssue: ""
@@ -130,7 +137,7 @@ export function Chart(props:Props) {
             return <em style={{ color: "red" }}>{appState.message}</em>;
           case AppStateType.LOADED_COMPONENT:
           case AppStateType.FINISHED:
-            return <LineChart {...chartProps} options={appState.processesoptions} series={appState.processesseries}/>;
+            return <LineChart {...chartProps} options={appState.processesoptions} series={appState.processesseries} />;
           default:
             return <em>Status: {appState.state}</em>;
         }
