@@ -65,8 +65,6 @@ interface Props {
 
 function getseries(dataset: any): any {
   var newseries: typeseries = { name: dataset.columns[1].name, data: dataset.data.map((d: any) => d[1]) };
-  console.log(dataset.columns[1].name);
-  console.log(newseries);
   return newseries;
 }
 
