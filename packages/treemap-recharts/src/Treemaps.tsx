@@ -17,7 +17,6 @@ export interface TreemapProps {
 export interface TreemapState {}
 
 export function Treemaps(props: TreemapProps) {
-  console.log(props.data);
   return (
     <div className="App">
       <Treemap
