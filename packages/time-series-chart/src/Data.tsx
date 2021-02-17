@@ -1,4 +1,4 @@
-export interface typeoptions {
+export interface Options {
   chart: {
     id: string;
   };
@@ -7,7 +7,7 @@ export interface typeoptions {
   };
 }
 
-export interface typeseries {
+export interface SingleSeries {
   name: string;
   data: Array<number>;
 }

@@ -3,14 +3,14 @@ import { LineChart, ChartProps } from "./LineChart";
 import { options, series } from "./SampleData";
 import { ComponentController, DataSet, ColumnType } from "@dashbuilder-js/component-api";
 import { useState, useEffect, useCallback } from "react";
-import { typeoptions, typeseries } from "./Data";
+import { Options, SingleSeries } from "./Data";
 
 // Default Values
 const DEFAULT_WIDTH = 400;
 const DEFAULT_HEIGHT = 200;
 const NOT_ENOUGH_COLUMNS_MSG =
-  "Time series component expects 2 columns: category(LABEL or TEXT or NUMBER) and series(NUMBER).";
-const FIRST_COLUMN_INVALID_MSG = "Wrong type for first column, it should be either LABEL or TEXT or NUMBER.";
+  "Time series component expects 2 columns: category(LABEL or TEXT or NUMBER or DATE) and series(NUMBER).";
+const FIRST_COLUMN_INVALID_MSG = "Wrong type for first column, it should be either LABEL, TEXT, NUMBER or DATE.";
 const SECOND_COLUMN_INVALID_MSG = "Wrong type for second column, it should be NUMBER.";
 
 enum Params {
@@ -28,8 +28,8 @@ enum AppStateType {
 
 interface AppState {
   state: AppStateType;
-  processesoptions: typeoptions;
-  processesseries: typeseries;
+  processesoptions: Options;
+  processesseries: Array<SingleSeries>;
   configurationIssue: string;
   message?: string;
 }
@@ -50,7 +50,8 @@ const validateDataSet = (ds: DataSet): string | undefined => {
   if (
     ds.columns[0].type !== ColumnType.LABEL &&
     ds.columns[0].type !== ColumnType.TEXT &&
-    ds.columns[0].type !== ColumnType.NUMBER
+    ds.columns[0].type !== ColumnType.NUMBER &&
+    ds.columns[0].type !== ColumnType.DATE
   ) {
     return FIRST_COLUMN_INVALID_MSG;
   }
@@ -64,12 +65,16 @@ interface Props {
 }
 
 function getseries(dataset: any): any {
-  var newseries: typeseries = { name: dataset.columns[1].name, data: dataset.data.map((d: any) => d[1]) };
-  return newseries;
+  var arrayseries: Array<SingleSeries> = [];
+  for( var i=1; i<dataset.columns.length; i++){
+  var newseries: SingleSeries = { name: dataset.columns[i].name, data: dataset.data.map((d: any) => d[i]) };
+  arrayseries.push(newseries);
+  }
+  return arrayseries;
 }
 
 function getoptions(dataset: any): any {
-  var newoptions: typeoptions = {
+  var newoptions: Options = {
     chart: { id: dataset.columns[0].name },
     xaxis: { categories: dataset.data.map((d: any) => d[1]) }
   };
@@ -86,7 +91,7 @@ export function Chart(props: Props) {
   const [appState, setAppState] = useState<AppState>({
     state: AppStateType.INIT,
     processesoptions: { chart: { id: "" }, xaxis: { categories: [] } },
-    processesseries: { name: "", data: [] },
+    processesseries: [{ name: "", data: [] }],
     configurationIssue: ""
   });
   const onDataset = useCallback((ds: DataSet, params: Map<string, any>) => {
