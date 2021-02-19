@@ -1,0 +1,65 @@
+{
+    "init": [
+      {
+        "key": "width",
+        "value": 800
+      },
+      {
+        "key": "height",
+        "value": 500
+      },
+      {
+        "key": "datakey",
+        "value": "size"
+      },
+      {
+        "key": "aspectRatio",
+        "value": "4/3"
+      },
+      {
+        "key": "stroke",
+        "value": "#000"
+      },
+      {
+        "key": "fill",
+        "value": "#8884d6"
+      },
+      {
+        "key": "animationbegin",
+        "value": "2"
+      },
+      {
+        "key":"animationduration",
+        "value": 1000
+      },
+      {
+        "key": "animationeasing",
+        "value": "ease-out"
+      }
+    ],
+    "dataSet": {
+      "columns": [
+        {
+          "name": "ID",
+          "type": "LABEL"
+        },
+        {
+          "name": "Parent",
+          "type": "TEXT"
+        },
+        {
+          "name": "Value",
+          "type": "NUMBER"
+        }
+      ],
+      "data": [
+        ["X", null, 0],
+        ["Y", "X", 15],
+        ["Z", "X", 20],
+        ["A", "X", 65],
+        ["B", "Y", 20],
+        ["C", "Y", 80]
+      ]
+    }
+  }
+  

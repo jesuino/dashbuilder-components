@@ -16,15 +16,6 @@ const DEFAULT_MIN_RADIUS = 2;
 const DEFAULT_RESIZE_BUBBLES = true;
 const DEFAULT_LATITUDE = 28.7041;
 const DEFAULT_LONGITUDE = 77.1025;
-const TITLE_PROP = "title";
-const LATITUDE_PROP = "latitude";
-const LONGITUDE_PROP = "longitude";
-const TITLE_ENABLED_PROP = "titleenabled";
-const ZOOM_PROP = "zoom";
-const BUBBLECOLOR_PROP = "bubblecolor";
-const MAXRADIUS_PROP = "maxRadius";
-const MINRADIUS_PROP = "minRadius";
-const RESIZEBUBBLES_PROP = "resizeBubbles";
 const NOT_ENOUGH_COLUMNS_MSG = "Map component expects 4 columns: Country(LABEL or TEXT),Latitude(NUMBER), Longitude(NUMBER, Value (NUMBER).";
 const FIRST_COLUMN_INVALID_MSG = "Wrong type for first column, it should be either LABEL or TEXT.";
 const SECOND_COLUMN_INVALID_MSG = "Wrong type for second column, it should be NUMBER.";
@@ -153,15 +144,15 @@ export function MapBubble(props: Props) {
   useEffect(() => {
     props.controller.setOnInit(componentProps => {
       setMapProps({
-        title: (componentProps.get(TITLE_PROP) as string) || DEFAULT_TITLE,
-        latitude: +componentProps.get(LATITUDE_PROP) || DEFAULT_LATITUDE,
-        longitude: +componentProps.get(LONGITUDE_PROP) || DEFAULT_LONGITUDE,
-        titleenabled: (componentProps.get(TITLE_ENABLED_PROP) as boolean) || DEFAULT_TITLE_ENABLED,
-        zoom: +componentProps.get(ZOOM_PROP) || DEFAULT_ZOOM,
-        bubblecolor: (componentProps.get(BUBBLECOLOR_PROP) as string) || DEFAULT_COLOR,
-        maxRadius: +componentProps.get(MAXRADIUS_PROP) || DEFAULT_MAX_RADIUS,
-        minRadius: +componentProps.get(MINRADIUS_PROP) || DEFAULT_MIN_RADIUS,
-        resizeBubbles: (componentProps.get(RESIZEBUBBLES_PROP) as boolean) || DEFAULT_RESIZE_BUBBLES,
+        title: (componentProps.get(Params.TITLE) as string) || DEFAULT_TITLE,
+        latitude: +componentProps.get(Params.LATITUDE) || DEFAULT_LATITUDE,
+        longitude: +componentProps.get(Params.LONGITUDE) || DEFAULT_LONGITUDE,
+        titleenabled: (componentProps.get(Params.TITLE_ENABLED) as boolean) || DEFAULT_TITLE_ENABLED,
+        zoom: +componentProps.get(Params.ZOOM) || DEFAULT_ZOOM,
+        bubblecolor: (componentProps.get(Params.BUBBLECOLOR) as string) || DEFAULT_COLOR,
+        maxRadius: +componentProps.get(Params.MAXRADIUS) || DEFAULT_MAX_RADIUS,
+        minRadius: +componentProps.get(Params.MINRADIUS) || DEFAULT_MIN_RADIUS,
+        resizeBubbles: (componentProps.get(Params.RESIZEBUBBLES) as boolean) || DEFAULT_RESIZE_BUBBLES,
         data: appState.processesNodesValues
       });
     });
