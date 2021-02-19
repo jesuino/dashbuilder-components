@@ -14,8 +14,6 @@ export interface TreemapProps {
   animationEasing?: AnimationEasingType;
 }
 
-export interface TreemapState {}
-
 export function Treemaps(props: TreemapProps) {
   return (
     <div className="App">

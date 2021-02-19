@@ -103,9 +103,9 @@ interface Props {
 }
 
 function getData(dataset: any): any {
-  var data: Data[] = [];
+  let data: Data[] = [];
   const newdata: Data[] = [];
-  dataset?.data.forEach((d: (string | number)[]) => {
+  dataset?.data.forEach((d: string[]) => {
     if (d[1] !== "null") {
       data.push({
         name: (d[1] as any) as string,
@@ -114,12 +114,12 @@ function getData(dataset: any): any {
     }
   });
 
-  let group: { [key: string]: Array<Children> } = data.reduce((r: any, a) => {
+  const group: { [key: string]: Children[] } = data.reduce((r: any, a) => {
     r[a.name] = [...(r[a.name] || []), a.children[0]];
     return r;
   }, {});
 
-  for (var key in group) {
+  for (const key in group) {
     if (group.hasOwnProperty(key)) {
       newdata.push({
         name: key,

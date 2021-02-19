@@ -1,10 +1,10 @@
 export interface Data {
   name: string;
-  children: Array<Children>;
+  children: Children[];
 }
 
 export interface Children {
   name: string;
   size?: number;
-  children?: Array<Children>;
+  children?: Children[];
 }

@@ -16,7 +16,8 @@ const DEFAULT_MIN_RADIUS = 2;
 const DEFAULT_RESIZE_BUBBLES = true;
 const DEFAULT_LATITUDE = 28.7041;
 const DEFAULT_LONGITUDE = 77.1025;
-const NOT_ENOUGH_COLUMNS_MSG = "Map component expects 4 columns: Country(LABEL or TEXT),Latitude(NUMBER), Longitude(NUMBER, Value (NUMBER).";
+const NOT_ENOUGH_COLUMNS_MSG =
+  "Map component expects 4 columns: Country(LABEL or TEXT),Latitude(NUMBER), Longitude(NUMBER, Value (NUMBER).";
 const FIRST_COLUMN_INVALID_MSG = "Wrong type for first column, it should be either LABEL or TEXT.";
 const SECOND_COLUMN_INVALID_MSG = "Wrong type for second column, it should be NUMBER.";
 const THIRD_COLUMN_INVALID_MSG = "Wrong type for third column, it should be NUMBER.";
@@ -49,10 +50,12 @@ interface AppState {
   message?: string;
 }
 
-const isEmpty = (param?: string ) =>{ return param === undefined || param?.trim() === ""};
+const isEmpty = (param?: string) => {
+  return param === undefined || param?.trim() === "";
+};
 
 const validateParams = (params: Map<string, any>): any => {
-   if (isEmpty(params.get(Params.TITLE))) {
+  if (isEmpty(params.get(Params.TITLE))) {
     return "Title is required.";
   }
   if (!params.get(Params.LATITUDE)) {
@@ -115,7 +118,7 @@ export function MapBubble(props: Props) {
     minRadius: DEFAULT_MIN_RADIUS,
     resizeBubbles: DEFAULT_RESIZE_BUBBLES,
     data: DefaultData
-  }); 
+  });
   const [appState, setAppState] = useState<AppState>({
     state: AppStateType.INIT,
     processesNodesValues: [],
@@ -134,7 +137,7 @@ export function MapBubble(props: Props) {
     } else {
       setAppState(previousAppState => ({
         ...previousAppState,
-        processesNodesValues: ds.data.map(d => ({ name: d[0], latitude: +d[1], longitude:+d[2], value:+d[3] })),
+        processesNodesValues: ds.data.map(d => ({ name: d[0], latitude: +d[1], longitude: +d[2], value: +d[3] })),
         state: AppStateType.FINISHED,
         configurationIssue: ""
       }));
@@ -175,7 +178,7 @@ export function MapBubble(props: Props) {
             return <em style={{ color: "red" }}>{appState.message}</em>;
           case AppStateType.LOADED_COMPONENT:
           case AppStateType.FINISHED:
-            return <LatLong {...mapProps} data={appState.processesNodesValues}/>;
+            return <LatLong {...mapProps} data={appState.processesNodesValues} />;
           default:
             return <em>Status: {appState.state}</em>;
         }
