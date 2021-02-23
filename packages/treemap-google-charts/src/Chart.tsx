@@ -79,7 +79,7 @@ const isEmpty = (param?: string) => {
   return param === undefined || param?.trim() === "";
 };
 
-const validateParams = (params: Map<string, any>): any => {
+const validateParams = (params: Map<string, any>): string | undefined => {
   if (isEmpty(params.get(Params.TITLE))) {
     return "Title is required.";
   }
@@ -166,11 +166,11 @@ interface Props {
   controller: ComponentController;
 }
 
-function getData(dataset: any): any {
+function getData(dataset: DataSet): Array<Array<number | string>> {
   var headerrow = dataset.columns.map((column: any) => column.name);
   for (var i = 0; i < dataset.data.length; i++) {
     for (var j = 0; j < dataset.data.length; j++) {
-      dataset.data[i][2] = Number(dataset.data[i][2]);
+      dataset.data[i][2] = dataset.data[i][2];
       if (dataset.data[i][j] === "null") {
         dataset.data[i][j] = JSON.parse(String(dataset.data[i][j]));
       }
