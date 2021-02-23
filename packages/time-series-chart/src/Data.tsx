@@ -9,5 +9,5 @@ export interface Options {
 
 export interface SingleSeries {
   name: string;
-  data: Array<number>;
+  data: Array<string|number>;
 }

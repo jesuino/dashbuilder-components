@@ -3,16 +3,16 @@
   "icon": "fa fa-bell-o",
   "parameters": [
     {
-      "name": "height",
+      "name": "flag",
       "type": "natural_number",
-      "defaultValue": "1000",
-      "label": "Height"
+      "defaultValue": "0",
+      "label": "Flag"
     },
     {
-      "name": "width",
-      "type": "natural_number",
-      "defaultValue": "500",
-      "label": "Width"
+      "name": "chartName",
+      "type": "string",
+      "defaultValue": "New chart",
+      "label": "Chart Name"
     }
   ]
 }
