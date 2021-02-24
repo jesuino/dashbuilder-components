@@ -1,12 +1,12 @@
 {
-  "name": "time series",
+  "name": "time-series-chart",
   "icon": "fa fa-bell-o",
   "parameters": [
     {
-      "name": "flag",
-      "type": "natural_number",
-      "defaultValue": "0",
-      "label": "Flag"
+      "name": "transposed",
+      "type": "boolean",
+      "defaultValue": "false",
+      "label": "Transpose dataset"
     },
     {
       "name": "chartName",

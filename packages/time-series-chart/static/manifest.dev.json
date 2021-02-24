@@ -1,8 +1,8 @@
 {
   "init": [
     {
-      "key": "flag",
-      "value": 1
+      "key": "transposed",
+      "value": true
     },
     {
       "key": "chartName",
