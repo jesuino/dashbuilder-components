@@ -1,0 +1,120 @@
+{
+  "init": [
+    {
+      "key": "title",
+      "value": "treemap"
+    },
+    {
+      "key": "titletextcolor",
+      "value": "blue"
+    },
+    {
+      "key": "titlefontname",
+      "value": "Times New Roman"
+    },
+    {
+      "key": "titlefontsize",
+      "value": 25
+    },
+    {
+      "key": "titlebold",
+      "value": "true"
+    },
+    {
+      "key": "titleitalic",
+      "value": "true"
+    },
+    {
+      "key": "textcolor",
+      "value": "black"
+    },
+    {
+      "key": "fontname",
+      "value": "Arial"
+    },
+    {
+      "key": "fontsize",
+      "value": 20
+    },
+    {
+      "key": "bold",
+      "value": "true"
+    },
+    {
+      "key": "italic",
+      "value": "true"
+    },
+    {
+      "key": "maxDepth",
+      "value": 1
+    },
+    {
+      "key": "maxPostDepth",
+      "value": 2
+    },
+    {
+      "key": "midHighlightColor",
+      "value": "blue"
+    },
+    {
+      "key": "minHighlightColor",
+      "value": "black"
+    },
+    {
+      "key": "maxHighlightColor",
+      "value": "#fff"
+    },
+    {
+      "key": "minColor",
+      "value": "#fff"
+    },
+    {
+      "key": "midColor",
+      "value": "#000"
+    },
+    {
+      "key": "maxColor",
+      "value": "blue"
+    },
+    {
+      "key": "headerHeight",
+      "value": 10
+    },
+    {
+      "key": "showScale",
+      "value": "true"
+    },
+    {
+      "key": "useWeightedAverageForAggregation",
+      "value": "false"
+    },
+    {
+      "key": "showTooltips",
+      "value": "true"
+    }
+  ],
+  "dataSet": {
+    "columns": [
+      {
+        "name": "ID",
+        "type": "LABEL"
+      },
+      {
+        "name": "Parent",
+        "type": "TEXT"
+      },
+      {
+        "name": "Value",
+        "type": "NUMBER"
+      }
+    ],
+    "data": [
+      ["X", null, 0],
+      ["Y", "X", 15],
+      ["Z", "X", 20],
+      ["A", "X", 65],
+      ["B", "Y", 20],
+      ["C", "Y", 80]
+    ]
+  }
+}
