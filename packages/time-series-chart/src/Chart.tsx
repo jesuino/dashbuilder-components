@@ -24,10 +24,8 @@ import { Options, SingleSeries } from "./Data";
 // Default Values
 const NOT_ENOUGH_COLUMNS_MSG =
   "Time series component expects at least 2 columns: category(LABEL or TEXT or NUMBER or DATE) and one or more series(NUMBER).";
-const FIRST_COLUMN_INVALID_MSG = "Wrong type for first column, it should be either LABEL, TEXT, NUMBER or DATE.";
 const NOT_ENOUGH_COLUMNS_MSG_1 =
   "Time series component expects 3 columns: category(LABEL or TEXT or NUMBER or DATE), series(TEXT) and values(NUMBER).";
-const FIRST_COLUMN_INVALID_MSG_1 = "Wrong type for first column, it should be either LABEL, TEXT, NUMBER or DATE.";
 const SECOND_COLUMN_INVALID_MSG_1 = "Wrong type for second column, it should be TEXT.";
 const THIRD_COLUMN_INVALID_MSG_1 = "Wrong type for third column, it should be NUMBER.";
 
@@ -61,12 +59,8 @@ const validateParams = (params: Map<string, string | number>): string | undefine
   }
 };
 
-const validateDataSet = (ds: DataSet, transposed: boolean) => {
-  if (transposed) {
-    validateTransposedDataset(ds);
-  } else {
-    validateNonTransposedDataset(ds);
-  }
+const validateDataSet = (ds: DataSet, transposed: boolean): string | undefined => {
+  return transposed ? validateTransposedDataset(ds) : validateNonTransposedDataset(ds);
 };
 
 const validateNonTransposedDataset = (ds: DataSet): string | undefined => {
@@ -97,20 +91,17 @@ interface Props {
 }
 
 function getSeries(dataset: DataSet, transposed: boolean): SingleSeries[] {
-  let arrayseries: SingleSeries[] = [];
-  if (transposed) {
-    arrayseries = getSeriesforTransposedDataset(dataset);
-  } else {
-    arrayseries = getSeriesforNonTransposedDataset(dataset);
-  }
-  return arrayseries;
+  return transposed ? getSeriesforTransposedDataset(dataset) : getSeriesforNonTransposedDataset(dataset);
 }
 
 function getSeriesforNonTransposedDataset(dataset: DataSet): SingleSeries[] {
   const arrayseries: SingleSeries[] = [];
   let newseries: SingleSeries = { name: "", data: [] };
   for (let i = 1; i < dataset.columns.length; i++) {
-    newseries = { name: dataset.columns[i].name, data: dataset.data.map((d: Array<string | number>) => d[i]) };
+    newseries = {
+      name: dataset.columns[i].settings.columnName,
+      data: dataset.data.map((d: Array<string | number>) => d[i])
+    };
     arrayseries.push(newseries);
   }
   return arrayseries;
@@ -170,7 +161,8 @@ export function Chart(props: Props) {
     configurationIssue: ""
   });
   const onDataset = useCallback((ds: DataSet, params: Map<string, any>) => {
-    const validationMessage = validateParams(params) || validateDataSet(ds, params.get(Params.TRANSPOSED));
+    const transposed = params.get(Params.TRANSPOSED) === "true";
+    const validationMessage = validateParams(params) || validateDataSet(ds, transposed);
     if (validationMessage) {
       setAppState(previousAppState => ({
         ...previousAppState,
@@ -181,8 +173,8 @@ export function Chart(props: Props) {
     } else {
       setAppState(previousAppState => ({
         ...previousAppState,
-        processesoptions: getOptions(ds, params.get(Params.TRANSPOSED), params.get(Params.CHARTNAME)),
-        processesseries: getSeries(ds, params.get(Params.TRANSPOSED)),
+        processesoptions: getOptions(ds, transposed, params.get(Params.CHARTNAME)),
+        processesseries: getSeries(ds, transposed),
         state: AppStateType.FINISHED,
         configurationIssue: ""
       }));

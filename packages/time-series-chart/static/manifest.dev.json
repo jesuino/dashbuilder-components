@@ -2,7 +2,7 @@
   "init": [
     {
       "key": "transposed",
-      "value": true
+      "value": "true"
     },
     {
       "key": "chartName",

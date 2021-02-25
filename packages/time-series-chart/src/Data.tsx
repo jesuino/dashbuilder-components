@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
- export interface Options {
+export interface Options {
   chart: {
     id: string;
   };
@@ -25,5 +25,5 @@
 
 export interface SingleSeries {
   name: string;
-  data: Array<string|number>;
+  data: Array<string | number>;
 }

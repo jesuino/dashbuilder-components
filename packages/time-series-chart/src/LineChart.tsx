@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
- import * as React from "react";
+import * as React from "react";
 import { Options, SingleSeries } from "./Data";
 import Chart from "react-apexcharts";
 
