@@ -1,0 +1,45 @@
+{
+  "init": [
+    {
+      "key": "transposed",
+      "value": "true"
+    },
+    {
+      "key": "chartName",
+      "value": "newChart"
+    }
+  ],
+  "dataSet": {
+    "columns": [
+      {
+        "name": "category",
+        "type": "TEXT"
+      },
+      {
+        "name": "series",
+        "type": "LABEL"
+      },
+      {
+        "name": "values",
+        "type": "NUMBER"
+      }
+    ],
+    "data": [
+      [2000, "series-1", 2],
+      [2000, "series-2", 78],
+      [2000, "series-3", 200],
+      [2001, "series-1", 89],
+      [2001, "series-2", 23],
+      [2001, "series-3", 110],
+      [2002, "series-1", 167],
+      [2002, "series-2", 110],
+      [2002, "series-3", 11],
+      [2003, "series-1", 70],
+      [2003, "series-2", 34],
+      [2003, "series-3", 57],
+      [2004, "series-1", 110],
+      [2004, "series-2", 140],
+      [2004, "series-3", 1]
+    ]
+  }
+}
