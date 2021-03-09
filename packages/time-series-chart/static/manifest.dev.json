@@ -5,8 +5,20 @@
       "value": "true"
     },
     {
+      "key": "showArea",
+      "value": "false"
+    },
+    {
       "key": "chartName",
       "value": "newChart"
+    },
+    {
+      "key": "dateCat",
+      "value": "false"
+    },
+    {
+      "key": "dataLabels",
+      "value": "true"
     }
   ],
   "dataSet": {

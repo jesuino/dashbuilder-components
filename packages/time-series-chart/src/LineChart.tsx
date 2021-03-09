@@ -18,13 +18,14 @@ import * as React from "react";
 import { Options, SingleSeries } from "./Data";
 import Chart from "react-apexcharts";
 
+export type ChartType = "line" | "area";
+
 export interface ChartProps {
+  type?: ChartType;
   options: Options;
   series: SingleSeries[];
 }
 
 export function LineChart(props: ChartProps) {
-  return (
-    <Chart type="line" options={props.options} series={props.series} />
-  );
+  return <Chart type={props.type || "line"} options={props.options} series={props.series} />;
 }
