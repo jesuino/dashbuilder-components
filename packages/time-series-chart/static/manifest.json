@@ -9,6 +9,24 @@
       "label": "Transpose dataset"
     },
     {
+      "name": "showArea",
+      "type": "boolean",
+      "defaultValue": "false",
+      "label": "Show Area"
+    },
+    {
+      "name": "dateCat",
+      "type": "boolean",
+      "defaultValue": "false",
+      "label": "Date Categories"
+    },
+    {
+      "name": "dataLabels",
+      "type": "boolean",
+      "defaultValue": "false",
+      "label": "Labels"
+    },
+    {
       "name": "chartName",
       "type": "string",
       "defaultValue": "New chart",

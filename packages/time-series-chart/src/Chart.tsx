@@ -31,7 +31,10 @@ const THIRD_COLUMN_INVALID_MSG_1 = "Wrong type for third column, it should be NU
 
 enum Params {
   TRANSPOSED = "transposed",
-  CHARTNAME = "chartName"
+  CHARTNAME = "chartName",
+  SHOWAREA = "showArea",
+  DATECAT = "dateCat",
+  DATALABELS = "dataLabels"
 }
 
 enum AppStateType {
@@ -134,17 +137,13 @@ function getSeriesforTransposedDataset(dataset: DataSet): SingleSeries[] {
 }
 
 function getOptions(dataset: DataSet, transposed: boolean, chartName: string): Options {
-  function removeduplicates(arr: Array<string | number>): Array<string | number> {
-    const outputArray: Array<string | number> = Array.from(new Set(arr));
-    return outputArray;
-  }
-  let newoptions: Options = { chart: { id: "" }, xaxis: { categories: [] } };
-  newoptions = {
+  const newoptions: Options = {
     chart: { id: chartName },
-    xaxis: { categories: dataset.data.map((d: Array<string | number>) => d[0]) }
+    xaxis: { type: "category", categories: dataset.data.map((d: Array<string | number>) => +d[0]) },
+    dataLabels: { enabled: false }
   };
   if (transposed) {
-    newoptions.xaxis.categories = removeduplicates(newoptions.xaxis.categories);
+    newoptions.xaxis.categories = Array.from(new Set(newoptions.xaxis.categories));
   }
   return newoptions;
 }
@@ -156,7 +155,11 @@ export function Chart(props: Props) {
   });
   const [appState, setAppState] = useState<AppState>({
     state: AppStateType.INIT,
-    processesoptions: { chart: { id: "" }, xaxis: { categories: [] } },
+    processesoptions: {
+      chart: { id: "" },
+      xaxis: { type: "category", categories: [] },
+      dataLabels: { enabled: false }
+    },
     processesseries: [{ name: "", data: [] }],
     configurationIssue: ""
   });
@@ -171,9 +174,12 @@ export function Chart(props: Props) {
         configurationIssue: validationMessage
       }));
     } else {
+      const op = getOptions(ds, transposed, params.get(Params.CHARTNAME));
+      op.xaxis.type = params.get(Params.DATECAT) === "true" ? "datetime" : "category";
+      op.dataLabels.enabled = params.get(Params.DATALABELS) === "true";
       setAppState(previousAppState => ({
         ...previousAppState,
-        processesoptions: getOptions(ds, transposed, params.get(Params.CHARTNAME)),
+        processesoptions: op,
         processesseries: getSeries(ds, transposed),
         state: AppStateType.FINISHED,
         configurationIssue: ""
@@ -183,6 +189,7 @@ export function Chart(props: Props) {
   useEffect(() => {
     props.controller.setOnInit(componentProps => {
       setChartProps({
+        type: componentProps.get(Params.SHOWAREA) === "true" ? "area" : "line",
         options: appState.processesoptions,
         series: appState.processesseries
       });

@@ -19,7 +19,11 @@ export interface Options {
     id: string;
   };
   xaxis: {
+    type: string;
     categories: Array<string | number>;
+  };
+  dataLabels: {
+    enabled: boolean;
   };
 }
 
